@@ -84,27 +84,15 @@ mocha:
 
 cucumber:
   stage: test
+  image:
+    name: docker/compose:1.24.1
+    entrypoint: ["/bin/sh", "-c"]
   services:
-    - postgres:latest
-    - name: selenium/standalone-chrome-debug:latest
-      alias: selenium
-    - name: minio/minio
-      alias: minio
-      command: ["server", "/data"]
-  variables:
-    POSTGRES_PASSWORD: password
-    POSTGRES_DB: root
-    POSTGRES_USER: root
-    SELENIUM_HOST: selenium
-    SELENIUM_PORT: 4444
-    TEST_PORT: 3001
-    RAILS_ENV: test
-    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
-    GIT_STRATEGY: none
+    - docker:dind
   script:
-    - cd /app
-    - rake storage:create
-    - cucumber
+    - docker-compose -f docker-compose.gitlab.yml run payment mix ecto.setup
+    - docker-compose -f docker-compose.gitlab.yml run app bash -c
+      "cp config/database.yml.sample config/database.yml && rake db:create && rake db:schema:load && cucumber"
 
 deploy:
   stage: deploy

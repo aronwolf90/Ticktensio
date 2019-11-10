@@ -20,6 +20,7 @@ import attendaceDaysActions from 'store/models/attendance_days_actions'
 import attendaceEventActions from 'store/models/attendance_event_actions'
 import contactActions from 'store/models/contact_actions'
 import documentActions from 'store/models/document_actions'
+import stripeCheckoutSessionActions from 'store/models/stripe_checkout_session_actions'
 
 export default {
   strict: true,
@@ -95,6 +96,7 @@ export default {
     ...attendaceEventActions,
     ...contactActions,
     ...documentActions,
+    ...stripeCheckoutSessionActions,
 
     initCurrentUser (context) {
       return context.dispatch('initContext').then(response => {

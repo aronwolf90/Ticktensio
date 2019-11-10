@@ -1,0 +1,45 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "pm_1FLa6VLeD4GoxaIEJ6cmtEiD",
+  "object": "payment_method",
+  "billing_details": {
+    "address": {
+      "city": null,
+      "country": "DE",
+      "line1": null,
+      "line2": null,
+      "postal_code": null,
+      "state": null
+    },
+    "email": "aronwolf90@gmail.com",
+    "name": "Aron Wolf",
+    "phone": null
+  },
+  "card": {
+    "brand": "visa",
+    "checks": {
+      "address_line1_check": null,
+      "address_postal_code_check": null,
+      "cvc_check": "pass"
+    },
+    "country": "US",
+    "exp_month": 1,
+    "exp_year": 2033,
+    "fingerprint": "X79tSfMZyLyOMAAG",
+    "funding": "credit",
+    "generated_from": null,
+    "last4": "4242",
+    "three_d_secure_usage": {
+      "supported": true
+    },
+    "wallet": null
+  },
+  "created": 1569178095,
+  "customer": "cus_FrJAjCNtzbcjgo",
+  "livemode": false,
+  "metadata": {
+  },
+  "type": "card"
+}

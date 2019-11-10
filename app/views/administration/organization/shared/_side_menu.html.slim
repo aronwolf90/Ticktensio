@@ -2,4 +2,10 @@
   = top_asside_item("Admin",
       path:  %i[edit administration organization],
       icon: :gears)
+  = asside_item("General",
+      path: edit_administration_organization_path,
+      policy: true)
+  = asside_item("Payment",
+      path: administration_admin_payments_path,
+      policy: true)
   = render "administration/shared/shared_issue_section"

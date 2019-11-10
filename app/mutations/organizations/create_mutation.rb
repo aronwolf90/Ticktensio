@@ -6,6 +6,7 @@ module Organizations
       ActiveRecord::Base.transaction do
         Apartment::Tenant.create(name) unless ActiveRecord::Base.connection.schema_exists?(name)
         model.update!(attributes.merge(time_zone_seconds: time_zone_seconds))
+        model
       end
     end
 

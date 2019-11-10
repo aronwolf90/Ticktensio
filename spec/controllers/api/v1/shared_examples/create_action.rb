@@ -7,7 +7,7 @@ RSpec.shared_examples "standard api create action" do |operation|
     let(:user) { User.new }
     let(:params) do
       {
-        "controller" => "api/v1/#{model.class.name.underscore.pluralize}",
+        "controller" => controller.controller_path,
         "action" => "create"
       }
     end

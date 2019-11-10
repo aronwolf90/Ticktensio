@@ -35,6 +35,14 @@ module ApplicationHelper
     ].join(".")
   end
 
+  def organization_url(organization)
+    if Settings.multi_tenant
+      [organization.name, Settings.host].join(".")
+    else
+      Settings.host
+    end
+  end
+
   def dropdown_link(*args, **options, &block)
     options[:class] ||= ""
     options[:class] += " dropdown-item"

@@ -58,6 +58,10 @@ Rails.application.routes.draw do
     end
 
     resources :contacts, only: %i[index show new edit]
+
+    namespace :admin do
+      resources :payments, only: :index
+    end
   end
 
   namespace :api do
@@ -81,6 +85,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index update] do
         resource :current_record, only: :show
       end
+
       resources :records, only: %i[create update]
       resources :projects, only: :index
       resources :wiki_categories, only: :index
@@ -94,6 +99,7 @@ Rails.application.routes.draw do
       resources :contact_avatars, only: %i[show create]
       resources :document_files, only: %i[show create update]
       resources :documents, only: %i[index show create update destroy]
+      resources :stripe_checkout_sessions, only: :create
     end
   end
 end

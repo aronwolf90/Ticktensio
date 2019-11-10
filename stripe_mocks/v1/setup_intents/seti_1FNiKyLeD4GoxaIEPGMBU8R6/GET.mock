@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "seti_1FNiKyLeD4GoxaIEPGMBU8R6",
+  "object": "setup_intent",
+  "application": null,
+  "cancellation_reason": null,
+  "client_secret": "seti_1FLZxlLeD4GoxaIEUSek4Ib9_secret_FrIY2yMzvbyzUCMqRYN440qqPrXRHFI",
+  "created": 1569177553,
+  "customer": null,
+  "description": null,
+  "last_setup_error": null,
+  "livemode": false,
+  "metadata": {
+  },
+  "next_action": null,
+  "on_behalf_of": null,
+  "payment_method": "pm_1FLa6VLeD4GoxaIEJ6cmtEiD",
+  "payment_method_options": {
+    "card": {
+      "request_three_d_secure": "automatic"
+    }
+  },
+  "payment_method_types": [
+    "card"
+  ],
+  "status": "succeeded",
+  "usage": "off_session"
+}

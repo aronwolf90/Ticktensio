@@ -8,6 +8,7 @@ module Registrations
         Apartment::Tenant.switch(organization_name) do
           create_user
         end
+        model
       end
     end
 

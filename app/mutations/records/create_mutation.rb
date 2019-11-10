@@ -8,6 +8,7 @@ module Records
         model.user = user
         deactivate_active_records if model.active?
         model.save!
+        model
       end
     end
 

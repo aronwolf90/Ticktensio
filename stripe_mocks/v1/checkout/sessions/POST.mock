@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "cs_test_8fh4AlX39Ncd3y8Rz2ysYSFOhPm8a4xkP4F2TnVOGnAMb61zyuCxXr50",
+  "object": "checkout.session",
+  "billing_address_collection": null,
+  "cancel_url": "https://example.com/cancel",
+  "client_reference_id": null,
+  "customer": null,
+  "customer_email": null,
+  "display_items": null,
+  "livemode": false,
+  "locale": null,
+  "mode": "setup",
+  "payment_intent": null,
+  "payment_method_types": [
+    "card"
+  ],
+  "setup_intent": "seti_1FNiKyLeD4GoxaIEPGMBU8R6",
+  "submit_type": null,
+  "subscription": null,
+  "success_url": "https://example.com/success?session_id={CHECKOUT_SESSION_ID}"
+}

@@ -11,6 +11,7 @@ module DocumentFiles
         uploader.upload_part(attributes[:file].read)
         model.save!
         uploader.complete_multipart_upload unless attributes[:not_finished]
+        model
       end
     end
   end

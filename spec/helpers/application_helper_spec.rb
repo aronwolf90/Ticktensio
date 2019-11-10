@@ -152,4 +152,24 @@ describe ApplicationHelper do
       is_expected.to eq '<div class="side-menu"><ul class="nav navbar-nav"></br></ul></div>'
     end
   end
+
+  describe "#organization_url" do
+    context "when multitenant is enabled" do
+      before { allow(Settings).to receive(:multi_tenant).and_return(true) }
+
+      it "return url with name as subdomain" do
+        expect(helper.organization_url(build_stubbed(:organization, name: "test")))
+          .to eq "test.lvh.me"
+      end
+    end
+
+    context "when multitenant is disabled" do
+      before { allow(Settings).to receive(:multi_tenant).and_return(false) }
+
+      it "return url with name as subdomain" do
+        expect(helper.organization_url(build_stubbed(:organization, name: "test")))
+          .to eq "lvh.me"
+      end
+    end
+  end
 end

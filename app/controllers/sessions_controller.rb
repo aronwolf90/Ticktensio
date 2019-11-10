@@ -13,9 +13,9 @@ class SessionsController < Devise::SessionsController
     end
   end
 
-  private
-    def organization
-      @organization ||=
-        Organization.find_by(name: params[:organization].to_domain)
-    end
+private
+  def organization
+    @organization ||=
+      Organization.find_by(name: params[:organization].to_domain)
+  end
 end
