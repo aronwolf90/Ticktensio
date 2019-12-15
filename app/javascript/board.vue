@@ -7,12 +7,20 @@
         .col-sm-2
           project-select
         .col-sm-2
-          a.btn.btn-sm.btn-outline-secondary(v-on:click='visitAdd($event)', :href='addLink')
+          a.btn.btn-sm.btn-outline-secondary(
+            v-on:click='visitAdd($event)',
+            href='/administration/board_lists/new'
+          )
             .fa.fa-plus
             |&nbsp add list
 
-    draggable.body.issues-board-body(v-model='boardLists')
-      list(v-for='boardList in boardLists', :key='boardList.id', :list-id='boardList.id')
+    draggable.body.issues-board-body(v-model="boardLists")
+      list(
+        v-for='boardList in boardLists',
+        :key='boardList.id',
+        :list-id='boardList.id',
+        :id='`column-${boardList.id}`'
+      )
 
 </template>
 
@@ -21,6 +29,8 @@ import Draggable from 'vuedraggable'
 import List from 'board/list'
 import ProjectSelect from 'board/project_select'
 import SearchSelect from 'board/search_select'
+import { Utils } from 'vuex-jsonapi-client'
+import { mapGetters, mapMutations } from 'vuex'
  
 export default {
   components: {
@@ -30,26 +40,25 @@ export default {
     SearchSelect
   },
   created () {
-    this.$store.dispatch('initBoardsLists')
-    this.$store.dispatch('initIssues')
+    this.fetch()
   },
   computed: {
     boardLists: {
       get () {
-        return this.$store.getters.boardLists
+        return this.$store.getters['board/boardLists']
       },
       set (boardLists) {
-        this.$store.dispatch('sortBoardLists', boardLists)
+        this.$store.dispatch('board/sortBoardLists', boardLists)
       }
-    },
-    addLink () {
-      return '/administration/board_lists/new'
     }
   },
   methods: {
     visitAdd (event) {
-      Turbolinks.visit(this.addLink) /* eslint-disable-line no-undef */
+      Turbolinks.visit('/administration/board_lists/new') /* eslint-disable-line no-undef */
       event.preventDefault()
+    },
+    fetch () {
+      this.$store.dispatch('board/getBoardLists')
     }
   }
 }

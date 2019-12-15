@@ -23,11 +23,13 @@ import documentActions from 'store/models/document_actions'
 import stripeCheckoutSessionActions from 'store/models/stripe_checkout_session_actions'
 import invoiceActions from 'store/models/invoice_actions'
 import subscriptionActions from 'store/models/subscription_actions'
+import Board from 'store/modules/board'
 
 export default {
   strict: true,
   modules: {
-    json_api: JsonApi
+    json_api: JsonApi,
+    board: Board
   },
   getters: {
     ...userGetters,

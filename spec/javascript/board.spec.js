@@ -17,11 +17,28 @@ localVue.use(FormInput)
 /* eslint-disable no-unused-expressions */
 
 describe('Board', () => {
-  subject(() => shallow(Board, { store: $store, localVue, stubs: { draggable } }))
+  subject(() => shallow(
+    Board, { store: $store, localVue, stubs: { draggable } }
+  ))
 
-  def('getters', () => ({ boardLists () { return $boardLists } }))
-  def('actions', () => ({ initBoardsLists () {} }))
-  def('store', () => (new Vuex.Store({ state: {}, getters: $getters, actions: $actions })))
+  def('getters', () => ({
+    boardLists () {
+      return $boardLists
+    }
+  }))
+  def('actions', () => ({
+    getBoardLists () {},
+    sortBoardLists () {}
+  }))
+  def('store', () => (new Vuex.Store({
+    modules: {
+      board: {
+        namespaced: true,
+        getters: $getters,
+        actions: $actions
+      }
+    }
+  })))
   def('Turbolinks', () => ({ visit: sinon.spy() }))
   def('boardLists', () => [])
 
@@ -32,13 +49,19 @@ describe('Board', () => {
   })
 
   describe('with boardLists', () => {
-    def('boardList1', () => ({ id: 1, name: 'name', 'ordinal-number': '1' }))
-    def('boardList2', () => ({ id: 2, name: 'name', 'ordinal-number': '1' }))
+    def('boardList1', () => ({ id: '1', type: 'board-lists' }))
+    def('boardList2', () => ({ id: '2', type: 'board-lists' }))
     def('boardLists', () => [$boardList1, $boardList2])
 
-    it('contain the list element', () => {
-      expect($subject.findAll(List).at(0).props().listId).to.be.eq(1)
-      expect($subject.findAll(List).at(1).props().listId).to.be.eq(2)
+    it('contain the list element', (done) => {
+      $subject
+      $subject.vm.$nextTick(() => {
+        $subject.vm.$nextTick(() => {
+          expect($subject.findAll(List).at(0).props().listId).to.be.eq('1')
+          expect($subject.findAll(List).at(1).props().listId).to.be.eq('2')
+          done()
+        })
+      })
     })
 
     it('contain the board-select element', () => {

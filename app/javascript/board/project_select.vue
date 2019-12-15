@@ -36,12 +36,11 @@ export default {
         return null
       },
       set (value) {
-        this.$store.dispatch('loadBoardLists', value)
         this.$store.dispatch('updateUser', {
           entry: this.currentUser,
           selectedProject: this.$store.getters.entry({
             id: value, type: 'projects' }) || null
-        })
+        }).then(() => this.$store.dispatch('board/getBoardLists'))
       }
     }
   },
