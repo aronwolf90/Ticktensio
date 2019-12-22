@@ -14,7 +14,7 @@ gem "puma", "~> 3.7"
 gem "devise"
 gem "devise_invitable"
 
-# Lovlevel
+# Low level
 gem "active_model_serializers"
 gem "acts_as_paranoid"
 gem "carrierwave"

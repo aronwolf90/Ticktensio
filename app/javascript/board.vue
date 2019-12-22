@@ -66,16 +66,19 @@ export default {
 
 <style lang='sass' scoped>
   .issues-board
+    display: flex
+    flex-flow: column
     height: calc(100% + 7px)
     .issues-board-header
       padding-bottom: 10px
       margin-right: 7px
-      height: 38px
     .issues-board-body
-      overflow-x: scroll
+      overflow-x: auto
+      overflow-y: auto
+      flex-grow : 1
       white-space: nowrap
       margin-right: -15px
       margin-left: -15px
-      height: calc(100% - 38px)
+      height: 100%
       padding-left: 13px
 </style>
