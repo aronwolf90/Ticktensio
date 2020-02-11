@@ -17,7 +17,7 @@ class MoreCollectionQuery < ApplicationQuery
     :per_page
   )
 
-  def initialize(collection, more_id:, sort_key: :ordinal_number, per_page:, **)
+  def initialize(collection, more_id:, sort_key: nil, per_page:, **)
     @collection = collection
     @more_id = more_id
     @sort_key = sort_key
@@ -27,12 +27,12 @@ class MoreCollectionQuery < ApplicationQuery
   def call
     if per_page.present?
       Result.new(
-        collection: result_collection.limit(per_page),
-        has_more: result_collection.count > per_page
+        collection: ordered_result_collection.limit(per_page),
+        has_more: ordered_result_collection.count > per_page
       )
     else
       Result.new(
-        collection: result_collection,
+        collection: ordered_result_collection,
         has_more: false
       )
     end
@@ -47,13 +47,26 @@ class MoreCollectionQuery < ApplicationQuery
       end
     end
 
+    def ordered_result_collection
+      if sort_key.nil?
+        result_collection.order(created_at: :desc, id: :desc)
+      else
+        result_collection.order(sort_key => :asc)
+      end
+    end
+
     def collection_by_more_id
-      if sort_attribute.present?
+      if sort_key.present?
         collection
-          .where("#{sort_key} > ? ", sort_attribute)
+          .where("#{sort_key} > ?", sort_attribute)
       else
         collection
-          .where("created_at < ? ", more_id_entry.created_at)
+          .where("""
+                   id != :id AND
+                   ((created_at < :created_at) OR (created_at = :created_at AND id < :id))
+                   """,
+                   created_at: more_id_entry.created_at, id: more_id_entry.id
+                )
       end
     end
 

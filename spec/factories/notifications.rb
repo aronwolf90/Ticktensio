@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :notification do
-    subject "MyString"
-    body "MyText"
-    path "MyString"
+    subject { "Notification subject" }
+    body { "Notification body" }
   end
 end

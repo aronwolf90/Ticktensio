@@ -7,7 +7,8 @@ RSpec.describe Api::V1::NotificationSerializer, type: :serializer do
     Notification.new(
       id: 1,
       subject: "Notifications subject",
-      body: "Notifications body"
+      body: "Notifications body",
+      created_at: "2019-02-17 17:00:00.000000000 +0100"
     )
   end
   let(:expected_result) do
@@ -17,7 +18,8 @@ RSpec.describe Api::V1::NotificationSerializer, type: :serializer do
         type: "notifications",
         attributes: {
           subject: "Notifications subject",
-          body: "Notifications body"
+          body: "Notifications body",
+          "created-at": "2019-02-17 17:00:00.000000000 +0100".to_time
         }
       }
     }

@@ -4,7 +4,7 @@ module Api
   module V1
     class NotificationsController < ApiController
       include StandartActions
-      per_page 15
+      per_page 10
       serializer Api::V1::NotificationSerializer
       collection_query Api::V1::Notifications::IndexQuery
 
@@ -12,6 +12,7 @@ module Api
         render(
           json: collection_result.collection,
           links: { next: next_more_path },
+          meta: { unreadCount: collection_result.unread_count },
           each_serializer: serializer
         )
       end

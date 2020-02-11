@@ -15,7 +15,8 @@ module Api
         :model_class,
         :per_page,
         :serializer,
-        :collection_query
+        :collection_query,
+        :operation
       )
 
       private
@@ -38,6 +39,10 @@ module Api
 
         def self.collection_query(value, **args)
           before_action -> { @collection_query ||= value  }, **args
+        end
+
+        def self.operation(value, **args)
+          before_action -> { @operation ||= value  }, **args
         end
 
         def serializer

@@ -24,6 +24,7 @@ import stripeCheckoutSessionActions from 'store/models/stripe_checkout_session_a
 import invoiceActions from 'store/models/invoice_actions'
 import subscriptionActions from 'store/models/subscription_actions'
 import Board from 'store/modules/board'
+import notificationActions from 'store/models/notification_actions'
 
 export default {
   strict: true,
@@ -103,6 +104,7 @@ export default {
     ...stripeCheckoutSessionActions,
     ...invoiceActions,
     ...subscriptionActions,
+    ...notificationActions,
 
     initCurrentUser (context) {
       return context.dispatch('getContext').then(response => {

@@ -11,11 +11,12 @@ RSpec.describe Api::V1::NotificationsController do
 
     expect(collection_query)
       .to receive(:call)
-      .with(more_id: nil, per_page: 15)
+      .with(more_id: nil, per_page: 10)
       .and_return(
         OpenStruct.new(
           collection: [Notification.new(id: 1)],
-          has_more: false
+          has_more: false,
+          unread_count: 1
         ))
 
     get :index

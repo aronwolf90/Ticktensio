@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :projects, through: :user_projects
   has_many :worked_issues, through: :records, class_name: "Issue",
                            source: :issue
+  has_many :notifications
 
   pg_search_scope(
     :search,

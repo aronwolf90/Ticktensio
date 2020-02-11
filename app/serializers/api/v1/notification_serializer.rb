@@ -6,6 +6,7 @@ module Api
       attributes(
         :subject,
         :body,
+        :created_at
       )
     end
   end

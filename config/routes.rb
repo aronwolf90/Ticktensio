@@ -106,6 +106,7 @@ Rails.application.routes.draw do
       resources :invoices, only: :index
       resource :subscription, only: :show
       resources :notifications, only: :index
+      resource :notifications_readed, only: :create
     end
   end
 end

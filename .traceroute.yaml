@@ -8,6 +8,7 @@ ignore_unreachable_actions:
 - per_page
 - serializer
 - collection_query
+- operation
 
 ignore_unused_routes:
 - ^devise

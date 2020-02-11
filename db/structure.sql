@@ -385,6 +385,8 @@ CREATE TABLE notifications (
     subject character varying,
     body text,
     path character varying,
+    readed boolean DEFAULT false NOT NULL,
+    user_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1080,6 +1082,13 @@ CREATE INDEX index_issues_on_deleted_at ON issues USING btree (deleted_at);
 --
 
 CREATE INDEX index_issues_on_user_id ON issues USING btree (user_id);
+
+
+--
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: test-organization; Owner: -
+--
+
+CREATE INDEX index_notifications_on_user_id ON notifications USING btree (user_id);
 
 
 --

@@ -17,7 +17,8 @@ module Api
             MoreCollectionQuery.call(
               BoardList.find(board_list_id).issues,
               more_id: more_id,
-              per_page: per_page
+              per_page: per_page,
+              sort_key: :ordinal_number
             )
           end
         end

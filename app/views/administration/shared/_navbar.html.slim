@@ -34,10 +34,12 @@
           includes: "organization")
 
     = right_menu do
-      = user_menu_dropdown_text
-        = image_tag current_user.avatar_url, class: 'rounded-circle', size: 24
-      = user_menu_dropdown_body do
-        = dropdown_link current_user, ""
-        = dropdown_link 'Settings', administration_user_path(current_user)
-        .dropdown-divider
-        = dropdown_link 'Sign out', destroy_user_session_path, method: :delete
+      notification-bell
+      li.nav-item
+        = user_menu_dropdown_text
+          = image_tag current_user.avatar_url, class: 'rounded-circle', size: 24
+        = user_menu_dropdown_body do
+          = dropdown_link current_user, ""
+          = dropdown_link 'Settings', administration_user_path(current_user)
+          .dropdown-divider
+          = dropdown_link 'Sign out', destroy_user_session_path, method: :delete

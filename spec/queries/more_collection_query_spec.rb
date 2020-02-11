@@ -7,7 +7,8 @@ RSpec.describe MoreCollectionQuery do
     described_class.(
       board_list.issues,
       more_id: more_id,
-      per_page: per_page
+      per_page: per_page,
+      sort_key: :ordinal_number
     )
   end
 
