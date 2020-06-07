@@ -11,6 +11,8 @@ postgresql:
   postgresqlUsername: postgres
   postgresqlDatabase: database
   postgresqlPassword: repl_password
+  image:
+    tag: 10.13.0-debian-10-r20
 redis:
   usePassword: false
   cluster:
