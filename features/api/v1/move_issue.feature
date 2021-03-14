@@ -56,6 +56,12 @@ Scenario: POST /api/v1/issues/1/move
                   "type": "labels"
                 }
               ]
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links": {

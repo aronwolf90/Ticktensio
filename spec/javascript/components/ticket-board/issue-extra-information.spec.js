@@ -18,10 +18,21 @@ describe('IssueExtraInformation', () => {
       labels: [{
         id: '1',
         type: 'labels'
-      }]
+      }],
+      project: {
+        id: '1',
+        type: 'projects'
+      }
     }
   }
-  const factory = ({ propsData } = {}) => {
+  const project = {
+    id: '1',
+    type: 'projects',
+    attributes: {
+      name: 'Project'
+    }
+  }
+  const factory = ({ propsData = {}, boardProject = null } = {}) => {
     return createWrapper(IssueExtraInformation, {
       propsData: {
         issueRef: {
@@ -34,7 +45,8 @@ describe('IssueExtraInformation', () => {
         $store: {
           getters: {
             entry,
-            relationship
+            relationship,
+            'board/project': boardProject
           }
         }
       }
@@ -66,6 +78,7 @@ describe('IssueExtraInformation', () => {
       }
     }])
     relationship.withArgs(issue, 'user').returns(user)
+    relationship.withArgs(issue, 'project').returns(project)
   })
 
   afterEach(() => {
@@ -100,5 +113,33 @@ describe('IssueExtraInformation', () => {
       }
     })
     expect(wrapper.html()).not.to.include('img')
+  })
+
+  it('shows project when was not filtered for a project', () => {
+    const wrapper = factory({
+      propsData: {
+        issueRef: {
+          id: '1',
+          type: 'issues'
+        }
+      },
+      boardProject: null
+    })
+    expect(wrapper.html()).to.include('Project')
+  })
+  it('does not show the project when was filtered for a project', () => {
+    const wrapper = factory({
+      propsData: {
+        issueRef: {
+          id: '1',
+          type: 'issues'
+        }
+      },
+      boardProject: {
+        id: '1',
+        type: 'projects'
+      }
+    })
+    expect(wrapper.html()).not.to.include('Project')
   })
 })

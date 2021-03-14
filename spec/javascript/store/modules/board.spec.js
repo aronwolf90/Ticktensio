@@ -27,6 +27,23 @@ describe('Modules.Board', () => {
         expect($subject).to.eql($boardLists)
       })
     })
+
+    it('.project', () => {
+      const state = {
+        projectRef: { id: '1', type: 'projects' }
+      }
+      const project = {
+        id: '1',
+        type: 'projects'
+      }
+      const entry = sandbox.stub()
+      const rootGetters = {
+        entry
+      }
+      entry.withArgs({ id: '1', type: 'projects' }).returns(project)
+      expect(Board.getters.project(state, {}, {}, rootGetters))
+        .to.eql(project)
+    })
   })
 
   describe('.mutations', () => {
@@ -45,25 +62,60 @@ describe('Modules.Board', () => {
         ])
       })
     })
+    it('project', () => {
+      const state = {
+        projectRef: null
+      }
+      const project = {
+        id: '1',
+        type: 'projects'
+      }
+      Board.mutations.project(state, project)
+      expect(state.projectRef).to.eql({ id: '1', type: 'projects' })
+    })
   })
 
   describe('.actions', () => {
+    it('.fetch', () => {
+      const context = { commit: sandbox.stub(), dispatch: sandbox.stub() }
+      Board.actions.fetch(context, '1')
+      expect(context.commit)
+        .to.have.been.calledWith('project', { id: '1', type: 'projects' })
+      expect(context.dispatch)
+        .to.have.been.calledWith('getBoardLists')
+    })
+
+    it('.refrech', () => {
+      const context = {
+        dispatch: sandbox.stub(),
+        state: {
+          projectRef: {
+            id: '1',
+            type: 'projects'
+          }
+        }
+      }
+      Board.actions.refrech(context)
+      expect(context.dispatch)
+        .to.have.been.calledWith('fetch', '1')
+    })
+
     describe('.getBoardLists', () => {
-      it('calls commit("boardLists", args)', (done) => {
+      it('calls commit("boardLists", args)', async () => {
         const boardList1 = { id: '1', type: 'board-lists' }
         const boardList2 = { id: '2', type: 'board-lists' }
+        const context = {
+          commit: sandbox.stub(),
+          dispatch: sandbox.stub()
+        }
+        context.dispatch.withArgs('initCurrentUser')
+          .returns(Promise.resolve())
+        context.dispatch.withArgs('getBoardLists')
+          .returns(Promise.resolve({ data: [boardList1, boardList2] }))
 
-        Board.actions.getBoardLists({
-          commit: (method, boardLists) => {
-            expect(method).to.eql('boardLists')
-            expect(boardLists).to.eql([boardList1, boardList2])
-            done()
-          },
-          dispatch: sandbox
-            .stub()
-            .withArgs('getBoardLists', null, { root: true })
-            .returns(Promise.resolve({ data: [boardList1, boardList2] }))
-        })
+        await Board.actions.getBoardLists(context, '1')
+        expect(context.commit)
+          .to.have.been.calledWith('boardLists', [boardList1, boardList2])
       })
     })
     describe('.sortBoardLists', () => {

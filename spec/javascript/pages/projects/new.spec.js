@@ -16,6 +16,7 @@ describe('ProjectNew', () => {
   const factory = () => {
     return createWrapper(ProjectNew, {
       stubs: {
+        'markdown-editor': true
       },
       mocks: {
         $store: {

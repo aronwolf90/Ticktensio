@@ -65,7 +65,7 @@ export default {
           entry: this.currentUser,
           selectedProject: this.$store.getters.entry({
             id: value.code, type: 'projects' }) || null
-        }).then(() => this.$store.dispatch('board/getBoardLists'))
+        }).then(() => this.$store.dispatch('board/fetch', value.code))
       }
     }
   },

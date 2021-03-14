@@ -42,7 +42,7 @@ describe('pages/records/index', () => {
   it('renders the new btn', () => {
     const wrapper = factory(PagesRecordsIndex)
 
-    expect(wrapper.find('a[href="/administration/records/new"]').exists()).to.be.true
+    expect(wrapper.html()).to.include('/administration/records/new"')
     expect(wrapper.html()).to.include('New record')
   })
 

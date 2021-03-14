@@ -65,6 +65,10 @@ Scenario: change selected project
   When I click on "#project-select" 
   And I click on "[role='option']" with "Test project 2"
   Then the element "#side-body" does not contain the text "Test issue 2"
+  And the element ".column:first-of-type" does not contain the text "Test project"
+  When I click on "#project-select" 
+  And I click on "[role='option']" with "All"
+  And the element ".column:first-of-type" contain the text "Test project"
 
 @javascript
 Scenario: search and change selected project

@@ -3,7 +3,8 @@ import { Utils } from 'vuex-jsonapi-client'
 export default {
   namespaced: true,
   state: {
-    boardListRefs: null
+    boardListRefs: null,
+    projectRef: null
   },
   getters: {
     boardLists (state, _getters, _rootState, rootGetters) {
@@ -11,16 +12,26 @@ export default {
       return state.boardListRefs.map(ref => rootGetters.entry(ref))
     },
     boardListIssues (stage, _getters, _rootStage, rootGetters) {
+    },
+    project (state, _getters, _rootState, rootGetters) {
+      return rootGetters.entry(state.projectRef)
     }
   },
   mutations: {
     boardLists (state, boardLists) {
       state.boardListRefs = Utils.entryArrayToRef(boardLists)
+    },
+    project (state, project) {
+      state.projectRef = Utils.entryToRef(project)
     }
   },
   actions: {
     fetch (context, projectId) {
+      context.commit('project', { id: projectId, type: 'projects' })
       return context.dispatch('getBoardLists', projectId)
+    },
+    refrech (context) {
+      return context.dispatch('fetch', context.state.projectRef.id)
     },
     getBoardLists (context, projectId) {
       return context.dispatch(

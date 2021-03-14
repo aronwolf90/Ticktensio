@@ -1,42 +1,49 @@
-import { mount, createLocalVue } from '@vue/test-utils'
 import Issue from 'pages/issues/_id'
-import Vuex from 'vuex'
-
-const localVue = createLocalVue()
-
-localVue.use(Vuex)
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 
 describe('Issue', () => {
-  subject(() => mount(Issue, {
-    store: $store,
-    localVue,
-    propsData: { id: 1 },
-    stubs: {
-      RightAside: '<div>Stubbed RightAside</div>',
-      Comments: '<div>Stubbed Comments</div>',
-      CreatedBy: true
-    }
-  }))
-
-  def('getters', () => ({
-    entry () { return () => $issue }
-  }))
-  def('actions', () => ({ initIssue () { } }))
-  def('store', () => (new Vuex.Store({ state: {}, getters: $getters, actions: $actions })))
-  def('issue', () => ({
+  const entry = sandbox.stub()
+  const dispatch = sandbox.stub()
+  const issue = {
     id: 1,
     type: 'issues',
-    attributes: { title: 'issue title', description: 'description' }
-  }))
+    attributes: {
+      title: 'issue title',
+      description: 'description'
+    }
+  }
+  const factory = () => {
+    return createWrapper(Issue, {
+      propsData: { id: 1 },
+      mocks: {
+        $store: {
+          getters: {
+            entry
+          },
+          dispatch
+        }
+      },
+      stubs: {
+        RightAside: '<div>Stubbed RightAside</div>',
+        Comments: '<div>Stubbed Comments</div>',
+        CreatedBy: true
+      }
+    })
+  }
+
+  beforeEach(() => {
+    entry.returns(issue)
+  })
 
   it('has comments', () => {
-    expect($subject.html()).to.include('Stubbed Comments')
+    const wrapper = factory()
+    expect(wrapper.html()).to.include('Stubbed Comments')
   })
 
   it('has right asigen', () => {
-    expect($subject.html()).to.include('Stubbed RightAside')
+    const wrapper = factory()
+    expect(wrapper.html()).to.include('Stubbed RightAside')
   })
 })

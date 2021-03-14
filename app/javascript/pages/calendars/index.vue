@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import Vuetify from 'vuetify'
 import CalendarsGoogleSubscriptionBtn from 'components/calendars/google-subscription-btn'
 
 import {
@@ -93,6 +94,15 @@ import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css'
 import { Utils } from 'vuex-jsonapi-client'
 import CreateEventDialog from 'components/calendar/create-event-dialog'
 import UpdateEventDialog from 'components/calendar/update-event-dialog'
+import Vue from 'vue/dist/vue.common'
+import DaySpanVuetify from 'dayspan-vuetify'
+
+Vue.use(Vuetify)
+Vue.use(DaySpanVuetify, {
+  methods: {
+    getDefaultEventColor: () => '#1976d2'
+  }
+})
 
 export default {
   name: 'dsCalendarApp',

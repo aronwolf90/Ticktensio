@@ -50,6 +50,12 @@ Scenario: Get /api/v1/issues
                 "id": "4",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -95,6 +101,12 @@ Scenario: Get /api/v1/issues
                 "id": "4",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -136,6 +148,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "4",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -179,6 +197,12 @@ Scenario: Get /api/v1/issues
                 "id": "4",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -220,6 +244,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "5",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -263,6 +293,12 @@ Scenario: Get /api/v1/issues
                 "id": "5",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -304,6 +340,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "5",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -347,6 +389,12 @@ Scenario: Get /api/v1/issues
                 "id": "6",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -388,6 +436,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "6",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -431,6 +485,12 @@ Scenario: Get /api/v1/issues
                 "id": "6",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -470,6 +530,12 @@ Scenario: Get /api/v1/issues
                 "id": "6",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -508,6 +574,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "7",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "2",
+                "type": "projects"
               }
             }
           },
@@ -573,6 +645,12 @@ Scenario: Get /api/v1/issues
                 "id": "7",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "2",
+                "type": "projects"
+              }
             }
           },
           "links": {
@@ -613,6 +691,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "6",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -657,6 +741,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "6",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -707,6 +797,12 @@ Scenario: Get /api/v1/issues
               "data": {
                 "id": "4",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },

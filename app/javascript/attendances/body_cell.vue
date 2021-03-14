@@ -35,8 +35,6 @@ export default {
       })
     }
   },
-  asyncComputed: {
-  },
   methods: {
     onClick () {
       this.$emit(

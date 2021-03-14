@@ -14,9 +14,11 @@ RSpec.describe Api::V1::IssueSerializer, type: :serializer do
     )
   end
   let(:user) { build_stubbed(:user) }
+  let(:project) { Project.new(id: 1) }
 
   let(:expected_result) do
-    { data: {
+    {
+      data: {
       id: issue.id.to_s,
       type: "issues",
       attributes: {
@@ -47,6 +49,12 @@ RSpec.describe Api::V1::IssueSerializer, type: :serializer do
             id: "1",
             type: "board-lists"
           }
+        },
+        project: {
+          data: {
+            id: "1",
+            type: "projects"
+          }
         }
       },
       links: { self: "/api/v1/issues/#{issue.id}" }
@@ -55,6 +63,7 @@ RSpec.describe Api::V1::IssueSerializer, type: :serializer do
 
   before do
     allow(issue).to receive(:labels).and_return([Label.new(id: 1)])
+    allow(issue).to receive(:project).and_return(project)
   end
 
   it "serialize record in the correct way" do

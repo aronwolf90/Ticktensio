@@ -137,7 +137,7 @@ export default {
       }
 
       this.$store.dispatch('createIssue', payload).then(() => {
-        this.$store.dispatch('board/getBoardLists').then(() => {
+        this.$store.dispatch('board/refrech').then(() => {
           this.$router.push('../..')
         })
       }).catch(({ status, data }) => {

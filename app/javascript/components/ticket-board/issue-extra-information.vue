@@ -5,7 +5,10 @@
         v-bind:style="{ 'background-color': label.attributes.color }"
       ) {{ label.attributes.name }}
       |&nbsp;
-    b-badge(v-if="showComplexity") {{ complexity }}
+    template(v-if="showProject")
+      b-badge {{ complexity }}
+      |&nbsp;
+    b-badge(v-if="showProject") {{ projectName }}
     b-img.pull-right.border(
       :src="avatarUrl",
       rounded="circle",
@@ -46,6 +49,15 @@ export default {
     },
     complexity () {
       return Utils.attribute(this.issue, 'complexity')
+    },
+    project () {
+      return this.$store.getters.relationship(this.issue, 'project')
+    },
+    projectName () {
+      return Utils.attribute(this.project, 'name')
+    },
+    showProject () {
+      return !this.$store.getters['board/project']
     }
   }
 }

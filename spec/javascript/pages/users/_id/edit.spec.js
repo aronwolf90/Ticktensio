@@ -30,6 +30,7 @@ describe('pages/users/edit.spec.js', () => {
 
   it('can change inputs values and submit them', async () => {
     const wrapper = factory()
+    sandbox.stub(wrapper.vm.$router, 'go')
     let resolvePromise = null
     const updatePromise = new Promise(resolve => {
       resolvePromise = resolve

@@ -1,27 +1,41 @@
-import { shallow, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
-import Page from '../../../app/javascript/wiki_content/page'
-const localVue = createLocalVue()
-
-localVue.use(Vuex)
+import Page from 'wiki_content/page'
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 
 describe('Page', () => {
-  subject(() => shallow(Page,
-    { store: $store, localVue, propsData: { categoryId: 1 } }
-  ))
-
-  def('getters', () => ({ entry () { return () => $page } }))
-  def('store', () => (new Vuex.Store({ state: {}, getters: $getters })))
-  def('page', () => ({ id: 1, attributes: { title: 'page title', content: '' } }))
+  const entry = sandbox.stub()
+  const page = {
+    id: '1',
+    type: 'wiki-pages',
+    attributes: {
+      title: 'page title',
+      content: ''
+    }
+  }
+  const factory = () => {
+    return createWrapper(Page, {
+      propsData: {
+        pageId: '1'
+      },
+      mocks: {
+        $store: {
+          getters: {
+            entry
+          }
+        }
+      }
+    })
+  }
+  beforeEach(() => {
+    entry.withArgs({ id: '1', type: 'wiki-pages' }).returns(page)
+  })
 
   it('the title is present', () => {
-    expect($subject.html()).to.include('page title')
+    expect(factory().html()).to.include('page title')
   })
 
   it('the icon is present', () => {
-    expect($subject.html()).to.include('fa-file-text-o')
+    expect(factory().html()).to.include('fa-file-text-o')
   })
 })

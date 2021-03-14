@@ -47,6 +47,12 @@ Scenario: Get /api/v1/projects/<id>/reminders
                 "id": "4",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 

@@ -3,20 +3,12 @@ import Vuex from 'vuex'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Router from 'vue-router'
-import Vuetify from 'vuetify'
-import DaySpanVuetify from 'dayspan-vuetify'
 import AsyncComputed from 'vue-async-computed'
 import BootstrapVue from 'bootstrap-vue'
 
 require('./polyfill')
 
 Vue.use(BootstrapVue)
-Vue.use(Vuex)
-Vue.use(Vuetify)
 Vue.use(Router)
+Vue.use(Vuex)
 Vue.use(AsyncComputed)
-Vue.use(DaySpanVuetify, {
-  methods: {
-    getDefaultEventColor: () => '#1976d2'
-  }
-})

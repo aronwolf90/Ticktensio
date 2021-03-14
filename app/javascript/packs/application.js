@@ -17,16 +17,16 @@ import MenuItem from 'components/menu-item'
 import Asides from 'components/asides'
 import BtnSubmit from 'components/btn-submit'
 import 'vue-select/dist/vue-select.css'
-import LoadScript from 'vue-plugin-load-script'
 import VueAnalytics from 'vue-analytics'
 import * as Sentry from '@sentry/browser'
 import vSelect from 'vue-select'
-import jQuery from 'jquery'
 import 'bootstrap'
 import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import 'stylesheets/administration.sass'
+import LoadScript from 'vue-plugin-load-script'
 
+import jQuery from 'jquery'
 const $ = jQuery
 window.jQuery = jQuery
 window.$ = $
@@ -35,7 +35,6 @@ require('jquery-ujs')
 require.context('../images', true)
 
 require('../config')
-Vue.use(LoadScript)
 
 Vue.component('shared-issue-section', SharedIssueSection)
 Vue.component('project-search-select', ProjectSearchSelect)
@@ -54,6 +53,8 @@ Vue.component('v-select', vSelect)
 store.commit('setEndpoint', '/api/v1/')
 store.commit('vue', Vue)
 window.store = store
+
+Vue.use(LoadScript)
 
 if (document.querySelector('meta[name="csrf-token"]')) {
   store.getters.axios.defaults.headers.common['X-CSRF-Token'] =

@@ -27,6 +27,8 @@ import Draggable from 'vuedraggable'
 import List from 'board/list'
 import ProjectSelect from 'board/project_select'
 import SearchSelect from 'board/search_select'
+import store from 'store'
+import { Utils } from 'vuex-jsonapi-client'
 
 export default {
   components: {
@@ -35,8 +37,13 @@ export default {
     ProjectSelect,
     SearchSelect
   },
-  created () {
-    this.fetch()
+  beforeRouteEnter (to, from, next) {
+    next(async vm => {
+      const response = await store
+        .dispatch('initCurrentUser', null, { root: true })
+      const project = Utils.relationship(response, 'selected-project')
+      store.dispatch('board/fetch', project ? project.id : null)
+    })
   },
   computed: {
     boardLists: {
@@ -46,11 +53,6 @@ export default {
       set (boardLists) {
         this.$store.dispatch('board/sortBoardLists', boardLists)
       }
-    }
-  },
-  methods: {
-    fetch () {
-      this.$store.dispatch('board/getBoardLists')
     }
   }
 }

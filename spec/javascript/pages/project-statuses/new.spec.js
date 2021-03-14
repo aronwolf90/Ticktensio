@@ -24,6 +24,14 @@ describe('pages/project-statuses/new.vue', () => {
   })
 
   it('calls createProjectStatus when submit is clicked', async () => {
+    dispatch.withArgs('createProjectStatus').returns(Promise.resolve({
+      data: {
+        data: {
+          id: '1',
+          type: 'project-statuses'
+        }
+      }
+    }))
     const wrapper = factory()
     wrapper.find('#input-name').element.value = 'New'
     wrapper.find('#input-name').trigger('input')

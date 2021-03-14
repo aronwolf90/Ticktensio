@@ -42,6 +42,12 @@ Scenario: GET /api/v1/board_lists/<id>/issues
                 "id": "4",
                 "type": "board-lists"
               }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
+              }
             }
           },
           "links":{ 
@@ -83,6 +89,12 @@ Scenario: GET /api/v1/board_lists/<id>/issues
               "data": {
                 "id": "4",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -128,6 +140,12 @@ Scenario: GET /api/v1/board_lists/<id>/issues
               "data": {
                 "id": "4",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
@@ -176,6 +194,12 @@ Scenario: GET /api/v1/board_lists/<id>/issues
               "data": {
                 "id": "4",
                 "type": "board-lists"
+              }
+            },
+            "project": {
+              "data": {
+                "id": "1",
+                "type": "projects"
               }
             }
           },
