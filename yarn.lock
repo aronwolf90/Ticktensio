@@ -3197,10 +3197,10 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bdd-lazy-var@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/bdd-lazy-var/-/bdd-lazy-var-2.6.0.tgz#46c6fe5ee682fe99cd41c87c12c9d7ef3524403a"
-  integrity sha512-HJth+pHJlR1W3VAEU4vuDIAK3xRDkOVoo6DHq6rEVDB+Nobr4KKEI4yMRKdPbswifKgA2HttO7YUOLQDnwoM6A==
+bdd-lazy-var@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/bdd-lazy-var/-/bdd-lazy-var-2.6.1.tgz#ca03fb36d68c5a507c0ba9a4d53160b899e6b7cb"
+  integrity sha512-X3ADwcFji/IHIrYJhTTpaiWhoOx4pl4whdAx1dmvdeUPsMUb7fVYFvf/Q33VEAEAVkEwi5rgNSZ0Y9oOVeQV+A==
 
 big.js@^3.1.3:
   version "3.2.0"
