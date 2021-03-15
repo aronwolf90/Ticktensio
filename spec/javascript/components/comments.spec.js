@@ -1,10 +1,4 @@
-import { shallow, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
-import Comments from '../../../app/javascript/components/comments'
-
-const localVue = createLocalVue()
-
-localVue.use(Vuex)
+import Comments from 'components/comments'
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
@@ -13,35 +7,40 @@ describe('Comments', () => {
   const comment = {
     id: 1,
     type: 'comments',
-    attributes: { content: 'comment content' }
+    attributes: {
+      content: 'comment content'
+    }
   }
-  const store = new Vuex.Store(
-    {
-      modules: {
-        projectsShow: {
-          namespaced: true,
+  const dispatch = sandbox.stub()
+  const factory = () => {
+    return createWrapper(Comments, {
+      stubs: {
+        'markdown-viewer': true,
+        'markdown-editor': true
+      },
+      mocks: {
+        $store: {
           getters: {
-            comments () { return [comment] }
-          }
+            'projectsShow/comments': [comment],
+            projectComment: () => comment
+          },
+          dispatch
         }
       },
-      getters: {
-        projectComment () { return () => comment }
-      },
-      actions: {
-        getProjectComments () {
-          return Promise.resolve({ data: [comment] })
-        }
+      propsData: {
+        module: 'projectsShow'
       }
     })
+  }
+  beforeEach(() => {
+    dispatch.withArgs('getProjectComments', Promise.resolve({ data: [comment] }))
+  })
 
-  it('contain comment', () => {
-    const wrapper = shallow(Comments, { store: store, localVue })
+  it('contain comment', async () => {
+    const wrapper = factory()
 
-    wrapper.vm.$nextTick(() => {
-      wrapper.vm.$nextTick(() => {
-        expect(wrapper.html()).to.include('comment content')
-      })
-    })
+    await wrapper.vm.$nextTick()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.html()).to.include('comment content')
   })
 })

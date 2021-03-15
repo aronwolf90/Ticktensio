@@ -1,40 +1,40 @@
-import { shallow, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
-import BodyCell from '../../../app/javascript/attendances/body_cell'
-
-const localVue = createLocalVue()
-
-localVue.use(Vuex)
+import BodyCell from 'attendances/body_cell'
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 
 describe('BodyCell', () => {
-  subject(() => shallow(BodyCell, { store: $store, localVue }))
-
-  def('getters', () => ({
-    entry () { return () => { return $attendanceDay } },
-    attendanceEventForDay () { return () => { null } }
-  }))
-  def('store', () => (new Vuex.Store({
-    state: {},
-    getters: $getters
-  })))
-
-  def('attendanceDay', () => ({
+  const attendanceDay = {
     id: '2019-01-01',
     type: 'attendance-days',
     attributes: {
       day: '2019-01-01',
       kind: 'holiday-day'
     }
-  }))
+  }
+  const entry = sandbox.stub()
+  const attendanceEventForDay = sandbox.stub()
+  const factory = () => {
+    return createWrapper(BodyCell, {
+      mocks: {
+        $store: {
+          getters: {
+            entry,
+            attendanceEventForDay
+          }
+        }
+      }
+    })
+  }
+  beforeEach(() => {
+    entry.returns(attendanceDay)
+  })
 
   it('render day kind class', () => {
-    expect($subject.html()).to.include('class="holiday-day')
+    expect(factory().html()).to.include('class="holiday-day')
   })
 
   it('render table cell', () => {
-    expect($subject.html()).to.include('<td')
+    expect(factory().html()).to.include('<td')
   })
 })

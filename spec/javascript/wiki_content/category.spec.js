@@ -1,54 +1,51 @@
-import { shallow, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
 import Category from 'wiki_content/category'
 import Page from 'wiki_content/page'
-const localVue = createLocalVue()
-
-localVue.use(Vuex)
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 
 describe('Category', () => {
-  subject(() => shallow(Category,
-    { store: $store, localVue, propsData: { categoryId: 1 } }))
-
-  def('getters', () => ({
-    entry () {
-      return ({ id }) => {
-        if (id === 1) return $category
-        return $childCategory
+  const entry = sandbox.stub()
+  const associatedEntries = sandbox.stub()
+  const category = { id: 1, attributes: { title: 'category title' } }
+  const childCategory = { id: 2, title: 'child category title' }
+  const page = { id: 1, attributes: { title: 'page title', content: '' } }
+  const factory = () => {
+    return createWrapper(Category, {
+      mocks: {
+        $store: {
+          getters: {
+            entry,
+            associatedEntries
+          }
+        }
+      },
+      propsData: {
+        categoryId: 1
       }
-    },
-    associatedEntries () {
-      return ({ entry, name }) => {
-        if (entry !== $category) return []
-        if (name === 'wiki-categories') return $childCategories
-        return $pages
-      }
-    }
-  }))
-  def('store', () => (new Vuex.Store({ state: {}, getters: $getters })))
-
-  def('category', () => ({ id: 1, attributes: { title: 'category title' } }))
-  def('childCategory', () => ({ id: 2, title: 'child category title' }))
-  def('childCategories', () => [$childCategory])
-  def('page', () => ({ id: 1, attributes: { title: 'page title', content: '' } }))
-  def('pages', () => [$page])
+    })
+  }
+  beforeEach(() => {
+    entry.withArgs({ type: 'wiki-categories', id: 1 }).returns(category)
+    entry.withArgs({ type: 'wiki-categories', id: 2 }).returns(childCategory)
+    associatedEntries.returns([])
+    associatedEntries.withArgs({ entry: category, name: 'wiki-categories' }).returns([childCategory])
+    associatedEntries.withArgs({ entry: category, name: 'wiki-pages' }).returns([page])
+  })
 
   it('the title is present', () => {
-    expect($subject.html()).to.include('category title')
+    expect(factory().html()).to.include('category title')
   })
 
   it('the category icon is present', () => {
-    expect($subject.html()).to.include('fa-tags')
+    expect(factory().html()).to.include('fa-tags')
   })
 
   it('render the child category', () => {
-    expect($subject.find(Category).exists()).to.be.true
+    expect(factory().find(Category).exists()).to.be.true
   })
 
   it('render the page', () => {
-    expect($subject.find(Page).exists()).to.be.true
+    expect(factory().find(Page).exists()).to.be.true
   })
 })

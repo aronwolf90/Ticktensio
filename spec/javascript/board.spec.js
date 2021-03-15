@@ -1,91 +1,66 @@
-import { shallow, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
 import Board from 'pages/board-lists/index'
 import List from 'board/list'
 import ProjectSelect from 'board/project_select'
 import SearchSelect from 'board/search_select'
 import draggable from 'vuedraggable'
-import sinon from 'sinon'
-import BootstrapVue from 'bootstrap-vue'
-import VueRouter from 'vue-router'
-
-const localVue = createLocalVue()
-const router = new VueRouter()
-
-localVue.use(Vuex)
-localVue.use(BootstrapVue)
-localVue.use(VueRouter)
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 
 describe('Board', () => {
-  subject(() => shallow(
-    Board, {
-      store: $store, localVue, router, stubs: { draggable }
-    }
-  ))
-
-  def('getters', () => ({
-    boardLists () {
-      return $boardLists
-    }
-  }))
-  def('actions', () => ({
-    getBoardLists () {},
-    sortBoardLists () {}
-  }))
-  def('store', () => (new Vuex.Store({
-    modules: {
-      board: {
-        namespaced: true,
-        getters: $getters,
-        actions: $actions
+  const dispatch = sandbox.stub()
+  const factory = ({ boardLists }) => {
+    return createWrapper(Board, {
+      stubs: {
+        list: true,
+        draggable,
+        'project-select': true,
+        'search-select': true
+      },
+      mocks: {
+        $store: {
+          getters: {
+            'board/boardLists': boardLists
+          },
+          dispatch
+        }
       }
-    }
-  })))
-  def('Turbolinks', () => ({ visit: sinon.spy() }))
-  def('boardLists', () => [])
-
-  beforeEach(() => (global.Turbolinks = $Turbolinks))
+    })
+  }
 
   it('the SearchSelect is present', () => {
-    expect($subject.find(SearchSelect).exists()).to.be.true
+    expect(factory({ boardLists: [] }).find(SearchSelect).exists()).to.be.true
   })
 
   describe('with boardLists', () => {
-    def('boardList1', () => ({ id: '1', type: 'board-lists' }))
-    def('boardList2', () => ({ id: '2', type: 'board-lists' }))
-    def('boardLists', () => [$boardList1, $boardList2])
+    const boardList1 = { id: '1', type: 'board-lists' }
+    const boardList2 = { id: '2', type: 'board-lists' }
 
-    it('contain the list element', (done) => {
-      $subject
-      $subject.vm.$nextTick(() => {
-        $subject.vm.$nextTick(() => {
-          expect($subject.findAll(List).at(0).props().listId).to.be.eq('1')
-          expect($subject.findAll(List).at(1).props().listId).to.be.eq('2')
-          done()
-        })
-      })
+    it('contain the list element', async () => {
+      const wrapper = factory({ boardLists: [boardList1, boardList2] })
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+      expect(wrapper.findAll(List).at(0).props().listId).to.be.eq('1')
+      expect(wrapper.findAll(List).at(1).props().listId).to.be.eq('2')
     })
 
     it('contain the board-select element', () => {
-      expect($subject.find(ProjectSelect).exists()).to.be.true
+      expect(factory({ boardLists: [] }).find(ProjectSelect).exists()).to.be.true
     })
 
-    it('change board_list order', (done) => {
-      let boardLists = [$boardList2, $boardList1]
-      $actions.sortBoardLists = function sortBoardLists (context, localBoardLists) {
-        expect(localBoardLists).to.eq(boardLists)
-        done()
-      }
-      $subject.vm.boardLists = boardLists
+    it('change board_list order', async () => {
+      const wrapper = factory({ boardLists: [boardList1, boardList2] })
+      let localBoardLists = [boardList2, boardList1]
+      wrapper.vm.boardLists = localBoardLists
+      await wrapper.vm.$nextTick()
+      await wrapper.vm.$nextTick()
+      expect(dispatch).to.have.been.calledWith('board/sortBoardLists', localBoardLists)
     })
   })
 
   describe('without boardLists', () => {
     it('contain the list element', () => {
-      expect($subject.findAll(List).length).to.eq(0)
+      expect(factory({ boardLists: [] }).findAll(List).length).to.eq(0)
     })
   })
 })
