@@ -1,14 +1,13 @@
 <template lang='pug'>
   .issue-extra-information(v-if="issue")
-    template(v-for="label in labels")
-      b-badge(
-        v-bind:style="{ 'background-color': label.attributes.color }"
-      ) {{ label.attributes.name }}
-      |&nbsp;
-    template(v-if="showProject")
-      b-badge {{ complexity }}
-      |&nbsp;
-    b-badge(v-if="showProject") {{ projectName }}
+    .labels
+      template(v-for="label in labels")
+        b-badge.badge(
+          v-bind:style="{ 'background-color': label.attributes.color }"
+        ) {{ label.attributes.name }}
+      template(v-if="showProject")
+        b-badge.badge {{ complexity }}
+      b-badge(v-if="showProject") {{ projectName }}
     b-img.pull-right.border(
       :src="avatarUrl",
       rounded="circle",
@@ -65,6 +64,19 @@ export default {
 </script>
 
 <style lang='sass' scoped>
- img
-   object-fit: cover
+ .issue-extra-information
+   display: flex
+   .labels
+     display: flex
+     flex-wrap: wrap
+     align-items: flex-start
+     width: calc(100% - 29px)
+     .badge
+       text-overflow: ellipsis
+       overflow: hidden
+       margin-top: 5px
+       margin-bottom: 2px
+       margin-right: 4px
+   img
+     object-fit: cover
 </style>
