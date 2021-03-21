@@ -16,7 +16,7 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import MarkdownViewer from '../markdown_viewer'
+import MarkdownViewer from 'markdown_viewer'
 import ShowBtnDestroy from 'components/show-btn-destroy'
 
 export default {

@@ -11,7 +11,7 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import RightAsideSelect from 'issue/right_aside_select'
+import RightAsideSelect from 'components/right-aside/select'
 
 export default {
   props: {

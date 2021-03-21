@@ -1,11 +1,5 @@
 import Router from 'vue-router'
 import RailsPage from 'components/rails-page'
-import ProjectDefault from 'projects/default'
-import ProjectsEdit from 'pages/projects/_id/edit'
-import IssueShow from 'issue/show'
-import IssueEdit from 'issue/edit'
-import WikiPageShow from 'wiki_page/show'
-import WikiPageEdit from 'wiki_page/edit'
 
 const router = new Router({
   mode: 'history',
@@ -64,13 +58,13 @@ const router = new Router({
       children: [
         {
           path: '',
-          component: ProjectDefault,
+          component: () => import('pages/projects/_id/index'),
           props: true,
           meta: { aside: 'projects-detail' }
         },
         {
           path: 'edit',
-          component: ProjectsEdit,
+          component: () => import('pages/projects/_id/edit'),
           props: true,
           meta: { aside: 'projects-detail' }
         }
@@ -130,12 +124,12 @@ const router = new Router({
       children: [
         {
           path: '',
-          component: IssueShow,
+          component: () => import('pages/issues/_id/index'),
           meta: { aside: 'projects-detail' }
         },
         {
           path: 'edit',
-          component: IssueEdit,
+          component: () => import('pages/issues/_id/edit'),
           meta: { aside: 'projects-detail' }
         }
       ]
@@ -205,12 +199,12 @@ const router = new Router({
       children: [
         {
           path: '',
-          component: IssueShow,
+          component: () => import('pages/issues/_id/index'),
           meta: { aside: 'global' }
         },
         {
           path: 'edit',
-          component: IssueEdit,
+          component: () => import('pages/issues/_id/edit'),
           meta: { aside: 'global' }
         }
       ]
@@ -235,12 +229,12 @@ const router = new Router({
       children: [
         {
           path: '',
-          component: WikiPageShow,
+          component: () => import('pages/wiki/pages/_id/index'),
           meta: { aside: 'global' }
         },
         {
           path: 'edit',
-          component: WikiPageEdit,
+          component: () => import('pages/wiki/pages/_id/edit'),
           meta: { aside: 'global' }
         }
       ]

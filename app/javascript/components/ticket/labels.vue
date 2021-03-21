@@ -31,8 +31,8 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import LabelModal from 'issue/label-modal'
-import LabelModalIndex from 'issue/label-modal-index'
+import LabelModal from 'components/label-modal'
+import LabelModalIndex from 'components/label-modal-index'
 import VSelect from 'vue-select'
 import RightAsideItem from 'components/right-aside-item'
 

@@ -1,4 +1,4 @@
-import IssueShow from 'issue/show'
+import IssueShow from 'pages/issues/_id/index'
 import MarkdownViewer from 'markdown_viewer'
 
 /* eslint-disable no-undef */

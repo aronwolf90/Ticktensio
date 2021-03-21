@@ -16,9 +16,15 @@
 </template>
 
 <script>
-import MarkdownViewer from '../markdown_viewer'
+import MarkdownViewer from 'markdown_viewer'
 import { Utils } from 'vuex-jsonapi-client'
 import ShowBtnDestroy from 'components/show-btn-destroy'
+import store from 'store'
+import projectsShow from 'store/modules/projects-show'
+
+if (!store.hasModule('projectsShow')) {
+  store.registerModule('projectsShow', projectsShow)
+}
 
 export default {
   props: ['id'],

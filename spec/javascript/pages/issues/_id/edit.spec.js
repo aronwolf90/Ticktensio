@@ -1,5 +1,4 @@
-import createWrapper from '../helper'
-import EditIssue from '../../../app/javascript/issue/edit'
+import EditIssue from 'pages/issues/_id/edit'
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */

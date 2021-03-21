@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import MarkdownEditor from '../markdown_editor'
+import MarkdownEditor from 'markdown_editor'
 
 export default {
   props: ['issueId'],
