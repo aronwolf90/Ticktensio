@@ -140,3 +140,15 @@ Scenario: Comment
   Then the element ".comment" contain the text "test comment"
   When I reload the page
   Then the element ".comment" contain the text "test comment"
+
+@javascript
+Scenario: Change project
+  Given a test-organization exists
+  And I am signed in (multitenant)
+  When I click on link "Test issue 1"
+  And I click on "#right-aside-project .text"
+  And I sleep "1" seconds
+  And I click on "#right-aside-project .item:nth-child(2)"
+  Then the element "#right-aside-project .text" contain the text "Test project 2"
+  And I reload the page
+  Then the element "#right-aside-project .text" contain the text "Test project 2"

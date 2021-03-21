@@ -11,6 +11,7 @@ module Api::V1
         optional(:data).schema do
           optional(:relationships).schema do
             optional(:issues).schema(RequiredMasManySchema)
+            optional(:project).schema(OptionalBelongsToSchema)
           end
         end
       end

@@ -8,6 +8,7 @@
     right-aside
       assigen(:issue-id='id')
       board-list(:issue-ref='issueRef')
+      project(:issue-ref='issueRef')
       complexity(:issue-id='id')
       due-at(:issue-id='id')
       deadline-at(:issue-id='id')
@@ -30,6 +31,7 @@ import DeadlineAt from 'components/ticket/deadline-at'
 import Labels from 'components/ticket/labels'
 import CreatedBy from 'components/ticket/created-by'
 import CreatedAt from 'components/ticket/created-at'
+import Project from 'components/ticket/project'
 import store from 'store'
 import issuesShow from 'store/modules/issues-show'
 
@@ -52,7 +54,8 @@ export default {
     DeadlineAt,
     Labels,
     CreatedBy,
-    CreatedAt
+    CreatedAt,
+    Project
   },
   created () {
     this.$store.dispatch('issuesShow/fetch', this.id)

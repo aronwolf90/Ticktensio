@@ -8,10 +8,12 @@ RSpec.describe Issues::MoveMutation do
       issue: issue,
       before_issue: before_issue,
       board_list: board_list,
+      project: project
     )
   end
   let(:board_list2) { create(:board_list) }
   let(:global_board_list1) { create(:board_list) }
+  let(:project) { nil }
 
   context "when board is a project specific one" do
     let(:board_list) { create(:board_list, project: create(:project)) }
@@ -127,6 +129,30 @@ RSpec.describe Issues::MoveMutation do
           expect(issue2.reload.global_ordinal_number).to eq(1)
         end
       end
+    end
+  end
+
+  context "when project is present and board_list is nil" do
+    let(:board_list) { nil }
+    let(:project) { create(:project) }
+    let(:before_issue) { nil }
+    let!(:project_board_list) { create(:board_list, project: project) }
+    let!(:global_board_list) { create(:board_list, project: nil) }
+    let!(:issue) do
+      create(
+        :issue,
+        board_list: create(:board_list),
+        global_board_list: global_board_list
+      )
+    end
+
+    it "set project specific board_list" do
+      call
+
+      expect(issue.global_board_list).to eq(global_board_list)
+      expect(issue.reload.ordinal_number).to eq(0)
+      expect(issue.reload.global_ordinal_number).to eq(0)
+      expect(issue.project).to eq(project)
     end
   end
 end

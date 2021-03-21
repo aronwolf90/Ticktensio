@@ -7,7 +7,8 @@
             :options="options",
             :selected-option="item",
             placeholder="select item",
-            @select="select"
+            @select="select",
+            @searchchange="searchchange"
           )
 </template>
 
@@ -21,7 +22,8 @@ export default {
     return { searchText: '' }
   },
   methods: {
-    select (item) { this.$emit('select', item) }
+    select (item) { this.$emit('select', item) },
+    searchchange (text) { this.$emit('search', text) }
   },
   components: {
     BasicSelect,

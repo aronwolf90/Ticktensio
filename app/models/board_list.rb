@@ -9,6 +9,8 @@ class BoardList < ApplicationRecord
   belongs_to :project
 
   scope :ordered, -> { order(:ordinal_number, :id) }
+  scope :project, -> { where.not(project_id: nil) }
+  scope :global, -> { where(project_id: nil) }
 
   enum kind: {
     open: "open",

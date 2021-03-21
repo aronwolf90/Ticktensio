@@ -18,6 +18,20 @@ describe('Store.Modules.IssuesShow', () => {
       name: 'In progress'
     }
   }
+  const project = {
+    id: 1,
+    type: 'projects',
+    attributes: {
+      name: 'Test'
+    }
+  }
+  const issue = {
+    id: 1,
+    type: 'issues',
+    attributes: {
+      name: 'Test'
+    }
+  }
 
   describe('.getters', () => {
     it('.comments', () => {
@@ -41,6 +55,18 @@ describe('Store.Modules.IssuesShow', () => {
 
       expect(result).to.eql([boardList])
     })
+    it('.projects', () => {
+      const entry = sandbox.stub()
+
+      entry.withArgs({ id: 1, type: 'projects' }).returns(project)
+      const result = IssuesShow.getters.projects({
+        projectRefs: [{ id: 1, type: 'projects' }]
+      }, {}, {}, {
+        entry
+      })
+
+      expect(result).to.eql([project])
+    })
   })
   describe('.actions', () => {
     it('.fetch', async () => {
@@ -56,13 +82,14 @@ describe('Store.Modules.IssuesShow', () => {
       }, '1')
 
       expect(dispatch).to.have.been
-        .calledWith('get', `issues/1?include=board_list`, { root: true })
+        .calledWith('get', `issues/1?include=board_list,project`, { root: true })
       expect(commit).to.have.been.calledWith('issueId', '1')
       expect(dispatch).to.have.been.calledWith('getIssueComments', '1')
       expect(commit).to.have.been.calledWith('comments', [comment])
       expect(dispatch).to.have.been.calledWith('getLabels')
       expect(dispatch).to.have.been.calledWith('getBoardLists')
       expect(commit).to.have.been.calledWith('boardLists', [boardList])
+      expect(dispatch).to.have.been.calledWith('getProjects')
     })
     describe('.createComment', () => {
       IssuesShow.actions.createComment({
@@ -76,6 +103,32 @@ describe('Store.Modules.IssuesShow', () => {
         commit () {}
       },
       {})
+    })
+    describe('.getProjects', async () => {
+      const dispatch = sandbox.stub()
+      const commit = sandbox.stub()
+      dispatch.withArgs('get').returns(Promise.resolve({ data: [project] }))
+      await IssuesShow.actions.getProjects({ dispatch, commit }, 'Test')
+      expect(dispatch).to.have.been.calledWith('get', 'projects?query=Test')
+      expect(commit).to.have.been.calledWith('projects', [project])
+    })
+    describe('.updateProject', () => {
+      const dispatch = sandbox.stub()
+      dispatch.returns(Promise.resolve())
+      IssuesShow.actions.updateProject({ dispatch, getters: { issue } }, project)
+      expect(dispatch).to.have.been.calledWith('update', {
+        entry: issue,
+        payload: {
+          relationships: {
+            project: {
+              data: {
+                id: 1,
+                type: 'projects'
+              }
+            }
+          }
+        }
+      })
     })
   })
   describe('.mutations', () => {
@@ -91,6 +144,20 @@ describe('Store.Modules.IssuesShow', () => {
       IssuesShow.mutations.boardLists(state, [boardList])
       expect(state).to.eql({
         boardListRefs: [ { id: 1, type: 'board-lists' } ]
+      })
+    })
+    it('.project', () => {
+      let state = {}
+      IssuesShow.mutations.project(state, project)
+      expect(state).to.eql({
+        projectRef: { id: 1, type: 'projects' }
+      })
+    })
+    it('.projects', () => {
+      let state = {}
+      IssuesShow.mutations.projects(state, [project])
+      expect(state).to.eql({
+        projectRefs: [{ id: 1, type: 'projects' }]
       })
     })
   })

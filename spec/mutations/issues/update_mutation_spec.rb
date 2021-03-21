@@ -155,4 +155,36 @@ RSpec.describe Issues::UpdateMutation do
       expect(model.board_list).to eq(closed_board_list)
     end
   end
+
+  context "with project_id" do
+    subject do
+      described_class.call(
+        user: current_user,
+        model: model,
+        board_list_id: params_board_list_id,
+        ordinal_number: ordinal_number,
+        project_id: project_id
+      )
+    end
+
+    context "when project_id==issue.project.id" do
+      let(:project_id) { project.id }
+
+      it "does nothing" do
+        subject
+        expect(model.project).to eq(project)
+      end
+    end
+
+    context "when project_id!=issue.project.id" do
+      let(:other_project) { create(:project) }
+      let(:project_id) { other_project.id }
+      let(:board_list) { create(:board_list, project: other_project) }
+
+      it "does nothing" do
+        subject
+        expect(model.reload.project).to eq(other_project)
+      end
+    end
+  end
 end

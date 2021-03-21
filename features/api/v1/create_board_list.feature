@@ -16,11 +16,11 @@ Scenario: Post an valid event using json in POST body
       }
     }
     """
-  Then the JSON response should be:
+  Then the JSON response should match:
     """
     {
       "data": {
-        "id": "10",
+        "id": "<.*>",
         "type": "board-lists",
         "attributes": { 
           "name": "Test name",
@@ -30,7 +30,7 @@ Scenario: Post an valid event using json in POST body
         "relationships": {
           "issues": {
             "data": [],
-            "links": { "self": "/api/v1/board_lists/10/issues" }
+            "links": { "self": "/api/v1/board_lists/<.*>/issues" }
           },
           "project": {
             "data": null
@@ -42,7 +42,7 @@ Scenario: Post an valid event using json in POST body
             "destroy": true
           }
         },
-        "links": { "self": "/api/v1/board_lists/10" }
+        "links": { "self": "/api/v1/board_lists/<.*>" }
       }
     }
     """
