@@ -22,26 +22,26 @@ module Issues
       ActiveRecord::Base.transaction do
         issue.update!(global_board_list: global_board_list) if global_board_list.present?
         issue.update!(board_list: project_board_list) if project_board_list.present?
+      end
 
-        if before_issue.blank? || before_issue.board_list == issue.board_list
-          issue.update!(ordinal_number: project_ordinal_number)
-          SortMutation.call(
-            Issue.where(board_list_id: issue.board_list_id),
-            model: issue,
-            sort_key: :ordinal_number,
-            sort_value: project_ordinal_number
-          )
-        end
+      if before_issue.blank? || before_issue.board_list == issue.board_list
+        issue.update!(ordinal_number: project_ordinal_number)
+        SortMutation.call(
+          Issue.where(board_list_id: issue.board_list_id),
+          model: issue,
+          sort_key: :ordinal_number,
+          sort_value: project_ordinal_number
+        )
+      end
 
-        if before_issue.blank? || before_issue.global_board_list == issue.global_board_list
-          issue.update!(global_ordinal_number: global_ordinal_number)
-          SortMutation.call(
-            Issue.where(global_board_list_id: issue.global_board_list_id),
-            model: issue,
-            sort_key: :global_ordinal_number,
-            sort_value: global_ordinal_number
-          )
-        end
+      if before_issue.blank? || before_issue.global_board_list == issue.global_board_list
+        issue.update!(global_ordinal_number: global_ordinal_number)
+        SortMutation.call(
+          Issue.where(global_board_list_id: issue.global_board_list_id),
+          model: issue,
+          sort_key: :global_ordinal_number,
+          sort_value: global_ordinal_number
+        )
       end
     end
 
