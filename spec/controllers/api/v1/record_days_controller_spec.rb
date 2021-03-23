@@ -4,7 +4,7 @@ require "rails_helper"
 require_relative "./shared_examples/standart_actions"
 
 RSpec.describe Api::V1::RecordDaysController, type: :controller do
-  let(:model) { RecordDay.new(id: 1) }
+  let(:model) { RecordDay.new }
 
   before do
     result = double

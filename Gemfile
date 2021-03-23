@@ -3,12 +3,12 @@
 source "https://rubygems.org"
 source "https://rails-assets.org"
 
-gem "rails", "~> 5.2"
+gem "rails", "~> 6.0.3"
 
 # Fundamental
-gem "apartment"
 gem "pg"
 gem "puma", "~> 5.0"
+gem "ros-apartment", require: "apartment"
 
 # Engines
 gem "devise"
