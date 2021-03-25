@@ -3,15 +3,11 @@
 module Api::V1
   module Documents
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:name).filled(:present?)
-            required(:"document-file-id").filled(:present?)
+            required(:name).filled(:string)
+            required(:"document-file-id").filled(:string)
           end
           required(:relationships).schema do
             required(:folder).schema(RequiredBelongsToSchema)

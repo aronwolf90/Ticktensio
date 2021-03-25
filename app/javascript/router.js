@@ -217,7 +217,7 @@ const router = new Router({
     },
     {
       path: '/administration/wiki/pages/new',
-      component: RailsPage,
+      component: () => import('pages/wiki/pages/new'),
       props: true,
       meta: { aside: 'wiki' }
     },

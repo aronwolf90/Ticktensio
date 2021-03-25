@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Api::V1::WikiCategories::CreateForm do
+describe Api::V1::WikiPages::CreateForm do
   subject { described_class.call(params) }
 
   let(:params) do
@@ -10,6 +10,14 @@ describe Api::V1::WikiCategories::CreateForm do
       data: {
         attributes: {
           "title": "Title"
+        },
+        relationships: {
+          "wiki-category": {
+            data: {
+              id: "1",
+              type: "wiki-categories"
+            }
+          }
         }
       }
     }

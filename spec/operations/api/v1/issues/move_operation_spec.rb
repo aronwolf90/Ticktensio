@@ -7,9 +7,9 @@ RSpec.describe Api::V1::Issues::MoveOperation do
   subject(:call) do
     described_class.call(
       current_user: User.new,
-      issue_id: 1,
-      before_issue_id: 2,
-      board_list_id: 1
+      issue_id: "1",
+      before_issue_id: "2",
+      board_list_id: "1"
     )
   end
 
@@ -18,9 +18,9 @@ RSpec.describe Api::V1::Issues::MoveOperation do
   let(:board_list) { BoardList.new }
 
   before do
-    allow(Issue).to receive(:find).with(1).and_return(issue1)
-    allow(Issue).to receive(:find_by).with(id: 2).and_return(issue2)
-    allow(BoardList).to receive(:find).with(1).and_return(board_list)
+    allow(Issue).to receive(:find).with("1").and_return(issue1)
+    allow(Issue).to receive(:find_by).with(id: "2").and_return(issue2)
+    allow(BoardList).to receive(:find).with("1").and_return(board_list)
     allow(Issues::MoveMutation).to receive(:call)
     allow(IssuePolicy).to receive(:new).and_return(double(move?: true))
   end

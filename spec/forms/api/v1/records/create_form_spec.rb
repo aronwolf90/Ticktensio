@@ -9,10 +9,10 @@ describe Api::V1::Records::CreateForm do
     {
       data: {
         attributes: {
-          "start-time": Time.zone.now
+          "start-time": Time.zone.now.to_s
         },
         relationships: {
-          issue: { data: { id: 1, type: "issues" } }
+          issue: { data: { id: "1", type: "issues" } }
         }
       }
     }
@@ -33,7 +33,7 @@ describe Api::V1::Records::CreateForm do
     before { params[:data][:attributes].delete :"start-time" }
 
     it "has an error" do
-      expect(subject.errors).to eq(data: { attributes: { "start-time": ["is missing"] } })
+      expect(subject.errors.to_h).to eq(data: { attributes: { "start-time": ["is missing"] } })
     end
   end
 
@@ -41,7 +41,7 @@ describe Api::V1::Records::CreateForm do
     before { params[:data][:relationships].delete :issue }
 
     it "has an error" do
-      expect(subject.errors).to eq(data: { relationships: { issue: ["is missing"] } })
+      expect(subject.errors.to_h).to eq(data: { relationships: { issue: ["is missing"] } })
     end
   end
 end

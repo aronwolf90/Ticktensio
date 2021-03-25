@@ -3,14 +3,10 @@
 module Api::V1
   module ProjectComments
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:content).filled
+            required(:content).filled(:string)
           end
           required(:relationships).schema do
             required(:user).filled.schema(RequiredBelongsToSchema)

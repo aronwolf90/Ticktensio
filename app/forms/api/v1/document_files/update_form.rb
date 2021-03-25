@@ -3,10 +3,10 @@
 module Api::V1
   module DocumentFiles
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
+      params do
         required(:data).schema do
-          required(:file).filled
-          optional(:not_finished).filled
+          required(:file).filled(:any)
+          optional(:not_finished).filled(:bool)
         end
       end
     end

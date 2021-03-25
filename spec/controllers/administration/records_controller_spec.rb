@@ -8,11 +8,5 @@ RSpec.describe Administration::RecordsController, type: :controller do
   let(:form) { Administration::RecordForm }
   let(:params) { {} }
 
-  include_examples "standard index action", Administration::Records
   include_examples "standard csv index action", Administration::Records
-  include_examples "standard new action", Administration::Records
-  include_examples "standard edit action", Administration::Records
-  include_examples "standard create action", Administration::Records, %i[administration records]
-  include_examples "standard update action", Administration::Records, %i[administration records]
-  include_examples "standard destroy action", Administration::Records, %i[administration records]
 end

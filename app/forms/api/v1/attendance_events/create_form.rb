@@ -3,18 +3,14 @@
 module Api::V1
   module AttendanceEvents
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:"from-day").filled
-            optional(:"to-day").maybe
-            optional(:"from-time").maybe
-            optional(:"to-time").maybe
-            optional(:description).maybe
+            required(:"from-day").filled(:string)
+            optional(:"to-day").maybe(:string)
+            optional(:"from-time").maybe(:string)
+            optional(:"to-time").maybe(:string)
+            optional(:description).maybe(:string)
           end
           required(:relationships).schema do
             required(:user).schema(RequiredBelongsToSchema)

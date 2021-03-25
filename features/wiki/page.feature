@@ -7,8 +7,8 @@ Scenario: Create and edit wiki page
   # Create
   When I click on link "Wiki"
   And I click on link "New wikipage"
-  And I enter "page title" into input named "data[title]"
-  And select "category 1" from select box "data[wiki_category_id]"
+  And I enter "page title" into input named "Title"
+  And select "category 1" from select box "Wiki category"
   And I click on submit
   And I reload the page
   Then the element "#side-body" contain the text "page title"

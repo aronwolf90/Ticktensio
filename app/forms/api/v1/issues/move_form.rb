@@ -3,13 +3,9 @@
 module Api::V1
   module Issues
     class MoveForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:issue_id).filled
-        required(:before_issue_id).maybe
+        required(:before_issue_id).maybe(:any)
         required(:board_list_id).filled
       end
     end

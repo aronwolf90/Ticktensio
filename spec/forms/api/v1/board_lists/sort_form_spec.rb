@@ -29,17 +29,8 @@ describe Api::V1::BoardLists::SortForm do
       before { params[:data] = nil }
 
       it "return an error: data must be filled" do
-        expect(subject.errors).to eq(data: ["must be filled"])
+        expect(subject.errors.to_h).to eq(data: ["must be filled"])
       end
-    end
-  end
-
-  context "board_lists does not exists" do
-    it "return an error: board_list does not exist" do
-      expect(subject.errors).to eq(data: {
-                                     0 => ["Board list does not exist"],
-                                     1 => ["Board list does not exist"]
-                                   })
     end
   end
 end

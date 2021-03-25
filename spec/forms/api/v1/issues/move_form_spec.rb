@@ -7,9 +7,9 @@ describe Api::V1::Issues::MoveForm do
 
   let(:params) do
     {
-      issue_id: 1,
-      before_issue_id: 2,
-      board_list_id: 1
+      issue_id: "1",
+      before_issue_id: "2",
+      board_list_id: "1"
     }
   end
 
@@ -18,19 +18,13 @@ describe Api::V1::Issues::MoveForm do
   end
 
   it "is invalid when issue_id is blank" do
-    params[:issue_id] = ""
-
-    expect(subject).to be_failure
-  end
-
-  it "is invalid when before_issue_id is blank" do
-    params[:before_issue_id] = ""
+    params[:issue_id] = nil
 
     expect(subject).to be_failure
   end
 
   it "is invalid when board_list_id is blank" do
-    params[:board_list_id] = ""
+    params[:board_list_id] = nil
 
     expect(subject).to be_failure
   end

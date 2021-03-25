@@ -3,15 +3,11 @@
 module Api::V1
   module ProjectBoardLists
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         optional(:data).schema do
           optional(:attributes).schema do
-            optional(:name).filled
-            optional(:'ordinal-number').filled
+            optional(:name).filled(:string)
+            optional(:'ordinal-number').filled(:any)
           end
         end
       end

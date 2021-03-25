@@ -33,7 +33,7 @@ module Api
           if result.success?
             render json: result[:model], status: :created
           else
-            render_errors(result[:errors])
+            render_errors(result[:errors].to_h)
           end
         end
 

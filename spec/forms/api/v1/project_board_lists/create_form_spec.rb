@@ -28,7 +28,7 @@ describe Api::V1::ProjectBoardLists::CreateForm do
     before { params[:data][:attributes][:name] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors).to eq(data: { attributes: { name: ["must be filled"] } })
+      expect(subject.errors.to_h).to eq(data: { attributes: { name: ["must be filled"] } })
     end
   end
 end

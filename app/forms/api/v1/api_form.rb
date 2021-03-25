@@ -2,43 +2,30 @@
 
 module Api
   module V1
-    class ApiForm
+    class ApiForm < Dry::Validation::Contract
       def self.call(params)
-        @form.call(params)
+        new.call(params)
       end
 
-      RequiredBelongsToSchema = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
-        required(:data).filled(:record_exists?)
-        required(:data).schema do
-          required(:id).filled(:present?)
-          required(:type).filled(:present?)
-        end
-      end
-
-      OptionalBelongsToSchema = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
-        optional(:data).maybe(:record_exists?).schema do
+      RequiredBelongsToSchema = Dry::Schema.Params do
+        required(:data).filled.schema do
           required(:id).filled
-          required(:type).filled
+          required(:type).filled(:string)
         end
       end
 
-      RequiredMasManySchema = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
+      OptionalBelongsToSchema = Dry::Schema.Params do
+        optional(:data).maybe(:hash) do
+          required(:id).filled
+          required(:type).filled(:string)
         end
+      end
 
+      RequiredMasManySchema = Dry::Schema.Params do
         required(:data).each do
           schema do
             required(:id).filled
-            required(:type).filled
+            required(:type).filled(:string)
           end
         end
       end

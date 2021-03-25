@@ -39,7 +39,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data].delete(:attributes) }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { attributes: ["is missing"] }
       )
     end
@@ -49,7 +49,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data][:attributes].delete(:"from-day") }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { attributes: { "from-day": ["is missing"] } }
       )
     end
@@ -58,32 +58,32 @@ describe Api::V1::AttendanceEvents::CreateForm do
   context "without to day" do
     before { params[:data][:attributes].delete(:"to-day") }
 
-    it "return no errors" do
-      expect(subject.errors).to eq({})
+    it "return no errors.to_h" do
+      expect(subject.errors.to_h).to eq({})
     end
   end
 
   context "without from time" do
     before { params[:data][:attributes].delete(:"from-time") }
 
-    it "return no errors" do
-      expect(subject.errors).to eq({})
+    it "return no errors.to_h" do
+      expect(subject.errors.to_h).to eq({})
     end
   end
 
   context "without to time" do
     before { params[:data][:attributes].delete(:"to-time") }
 
-    it "return no errors" do
-      expect(subject.errors).to eq({})
+    it "return no errors.to_h" do
+      expect(subject.errors.to_h).to eq({})
     end
   end
 
   context "without description" do
     before { params[:data][:attributes].delete(:description) }
 
-    it "return no errors" do
-      expect(subject.errors).to eq({})
+    it "return no errors.to_h" do
+      expect(subject.errors.to_h).to eq({})
     end
   end
 
@@ -91,7 +91,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data].delete(:relationships) }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: ["is missing"] }
       )
     end
@@ -101,7 +101,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data][:relationships].delete(:user) }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: { user: ["is missing"] } }
       )
     end
@@ -111,7 +111,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data][:relationships][:user] = {} }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: { user: { data: ["is missing"] } } }
       )
     end
@@ -121,7 +121,7 @@ describe Api::V1::AttendanceEvents::CreateForm do
     before { params[:data][:relationships][:user][:data].delete(:id) }
 
     it "has an error" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: { user: { data: { id: ["is missing"] } } } }
       )
     end

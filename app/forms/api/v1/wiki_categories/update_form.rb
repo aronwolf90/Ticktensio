@@ -3,14 +3,10 @@
 module Api::V1
   module WikiCategories
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:title).filled
+            optional(:title).filled(:string)
           end
         end
       end

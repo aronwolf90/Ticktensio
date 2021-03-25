@@ -11,13 +11,13 @@ describe Api::V1::Records::UpdateForm do
         id: 1,
         type: "records",
         attributes: {
-          "start-time": Time.zone.now,
-          "end-time": 1.hour.from_now,
+          "start-time": Time.zone.now.to_s,
+          "end-time": 1.hour.from_now.to_s,
           "complexity": "0.5"
         },
         relationships: {
-          user: { data: { id: 1, type: "users" } },
-          issue: { data: { id: 1, type: "issues" } }
+          user: { data: { id: "1", type: "users" } },
+          issue: { data: { id: "1", type: "issues" } }
         }
       }
     }
@@ -38,15 +38,7 @@ describe Api::V1::Records::UpdateForm do
     before { params[:data][:attributes][:"start-time"] = nil }
 
     it "has an error" do
-      expect(subject.errors).to eq(data: { attributes: { "start-time": ["must be filled"] } })
-    end
-  end
-
-  context "with no numeric complexity" do
-    before { params[:data][:attributes][:complexity] = "blabla" }
-
-    it "has an error" do
-      expect(subject.errors).to eq(data: { attributes: { complexity: ["Is not in a numeric compatible format"] } })
+      expect(subject.errors.to_h).to eq(data: { attributes: { "start-time": ["must be filled"] } })
     end
   end
 end

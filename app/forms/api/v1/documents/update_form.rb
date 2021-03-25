@@ -3,15 +3,11 @@
 module Api::V1
   module Documents
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:name).filled
-            optional(:"document-file-id").filled
+            optional(:name).filled(:string)
+            optional(:"document-file-id").filled(:string)
           end
           optional(:relationships).schema do
             optional(:folder).filled.schema(RequiredBelongsToSchema)

@@ -3,12 +3,7 @@
 module Api::V1
   module NotificationsReadeds
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-          config.type_specs = true
-        end
-
+      params do
         optional(:data).schema do
           optional(:attributes).schema do
             # optional(:"readed-at", Dry::Types["params.date_time"]).filled(:date_time?)

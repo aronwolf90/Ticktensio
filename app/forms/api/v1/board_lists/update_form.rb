@@ -3,11 +3,7 @@
 module Api::V1
   module BoardLists
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         optional(:data).schema do
           optional(:relationships).schema do
             optional(:issues).schema(RequiredMasManySchema)

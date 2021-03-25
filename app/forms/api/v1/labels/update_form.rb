@@ -3,15 +3,11 @@
 module Api::V1
   module Labels
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:name).filled
-            optional(:color).filled
+            optional(:name).filled(:string)
+            optional(:color).filled(:string)
           end
         end
       end

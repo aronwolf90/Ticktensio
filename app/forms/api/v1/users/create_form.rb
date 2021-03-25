@@ -3,16 +3,13 @@
 module Api::V1
   module Users
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
+      params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:firstname).filled
-            required(:lastname).filled
-            required(:email).filled
-            required(:type).filled
+            required(:firstname).filled(:string)
+            required(:lastname).filled(:string)
+            required(:email).filled(:string)
+            required(:type).filled(:string)
           end
         end
       end

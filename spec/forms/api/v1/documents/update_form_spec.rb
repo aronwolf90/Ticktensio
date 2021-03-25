@@ -14,8 +14,10 @@ describe Api::V1::Documents::UpdateForm do
         },
         relationships: {
           folder: {
-            id: nil,
-            type: "Folder"
+            data: {
+              id: "1",
+              type: "folders"
+            }
           }
         }
       }
@@ -30,7 +32,7 @@ describe Api::V1::Documents::UpdateForm do
     before { params[:data][:attributes][:name] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors)
+      expect(subject.errors.to_h)
         .to eq(data: { attributes: { name: ["must be filled"] } })
     end
   end
@@ -39,7 +41,7 @@ describe Api::V1::Documents::UpdateForm do
     before { params[:data][:attributes][:"document-file-id"] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors)
+      expect(subject.errors.to_h)
         .to eq(data: { attributes: { "document-file-id": ["must be filled"] } })
     end
   end

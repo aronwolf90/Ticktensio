@@ -12,7 +12,7 @@ describe Api::V1::Issues::UpdateForm do
           title: "title"
         },
         relationships: {
-          user: { data: { id: 1, type: "users" } }
+          user: { data: { id: "1", type: "users" } }
         }
       }
     }
@@ -39,7 +39,7 @@ describe Api::V1::Issues::UpdateForm do
     before { params[:data][:relationships][:user][:data][:id] = nil }
 
     it "it has an error: id must be filled" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: {
           user: { data: { id: ["must be filled"] } }
         } }

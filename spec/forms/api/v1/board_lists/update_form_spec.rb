@@ -32,7 +32,7 @@ describe Api::V1::BoardLists::UpdateForm do
     before { params[:data][:relationships][:issues][:data][0][:id] = nil }
 
     it "it has an error: id must be filled" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: {
           "issues": { data: { 0 => { id: ["must be filled"] } } }
         } }
@@ -46,9 +46,9 @@ describe Api::V1::BoardLists::UpdateForm do
     end
 
     it "it has an error: id must be filled" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: { relationships: {
-          "project": { data: ["Does not exists"] }
+          "project": { data: { id: ["must be filled"], type: ["is missing"] } }
         } }
       )
     end

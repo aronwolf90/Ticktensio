@@ -3,9 +3,9 @@
 module Api::V1
   module UserAvatars
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
+      params do
         required(:data).schema do
-          required(:file).filled
+          required(:file).filled(:any)
         end
       end
     end

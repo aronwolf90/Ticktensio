@@ -7,7 +7,7 @@ module Api
       namespace WikiPages
       model_class WikiPage
 
-      public :show, :update, :destroy
+      public :show, :create, :update, :destroy
     end
   end
 end

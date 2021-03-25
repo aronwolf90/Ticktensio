@@ -4,11 +4,7 @@ module Api::V1
   module Users
     module Configuration
       class UpdateForm < ApiForm
-        @form = Dry::Validation.Schema do
-          configure do
-            predicates(ApiPredicates)
-          end
-
+        params do
           types = Dry::Types["strict.string"].enum("Admin", "Employee", "Customer")
 
           required(:data).schema do

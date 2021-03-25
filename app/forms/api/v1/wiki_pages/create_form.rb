@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 module Api::V1
-  module Labels
+  module WikiPages
     class CreateForm < ApiForm
       params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:name).filled(:string)
-            required(:color).filled(:string)
+            required(:title).filled(:string)
+          end
+          required(:relationships).schema do
+            required(:"wiki-category").schema(RequiredBelongsToSchema)
           end
         end
       end

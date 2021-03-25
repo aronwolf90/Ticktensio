@@ -3,15 +3,11 @@
 module Api::V1
   module Records
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:'start-time').filled
-            optional(:complexity).maybe(:numeric_format?)
+            optional(:'start-time').filled(:string)
+            optional(:complexity).maybe(:any)
           end
           optional(:relationships).schema do
             optional(:user).schema(RequiredBelongsToSchema)

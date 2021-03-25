@@ -3,14 +3,10 @@
 module Api::V1
   module Contacts
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:kind).filled
+            optional(:kind).filled(:string)
           end
         end
       end

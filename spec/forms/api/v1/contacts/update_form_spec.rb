@@ -30,7 +30,7 @@ describe Api::V1::Contacts::UpdateForm do
     before { params[:data][:attributes][:kind] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors)
+      expect(subject.errors.to_h)
         .to eq(data: { attributes: { kind: ["must be filled"] } })
     end
   end

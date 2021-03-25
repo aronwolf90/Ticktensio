@@ -23,7 +23,7 @@ describe Api::V1::Events::UpdateForm do
     before { params[:data][:attributes][:"start-time"] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors).to eq(data: { attributes: { "start-time": ["must be filled"] } })
+      expect(subject.errors.to_h).to eq(data: { attributes: { "start-time": ["must be filled"] } })
     end
   end
 end

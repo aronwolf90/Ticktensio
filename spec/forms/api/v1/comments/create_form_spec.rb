@@ -32,7 +32,7 @@ describe Api::V1::Comments::CreateForm do
     before { params[:data][:attributes][:content] = nil }
 
     it "it has an error: content must be filled" do
-      expect(subject.errors).to eq(data: { attributes: { "content": ["must be filled"] } })
+      expect(subject.errors.to_h).to eq(data: { attributes: { "content": ["must be filled"] } })
     end
   end
 
@@ -40,7 +40,7 @@ describe Api::V1::Comments::CreateForm do
     before { params[:data][:relationships][:user] = nil }
 
     it "it has an error: user_id must be filled" do
-      expect(subject.errors).to eq(data: { relationships: { "user": ["must be filled"] } })
+      expect(subject.errors.to_h).to eq(data: { relationships: { "user": ["must be filled"] } })
     end
   end
 
@@ -48,7 +48,7 @@ describe Api::V1::Comments::CreateForm do
     before { params[:data][:relationships][:issue] = nil }
 
     it "it has an error: issue_id must be filled" do
-      expect(subject.errors).to eq(data: { relationships: { "issue": ["must be filled"] } })
+      expect(subject.errors.to_h).to eq(data: { relationships: { "issue": ["must be filled"] } })
     end
   end
 end

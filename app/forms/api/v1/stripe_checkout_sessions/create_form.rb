@@ -3,7 +3,8 @@
 module Api::V1
   module StripeCheckoutSessions
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do; end
+      params do
+      end
     end
   end
 end

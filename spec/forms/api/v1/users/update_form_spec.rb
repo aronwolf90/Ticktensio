@@ -29,11 +29,11 @@ describe Api::V1::Users::UpdateForm do
     end
   end
 
-  context "when data in nil" do
-    before { params[:data][:relationships][:"selected-project"][:data] = nil }
+  # context "when data in nil" do
+  #   before { params[:data][:relationships][:"selected-project"][:data] = nil }
 
-    it "form is valid" do
-      expect(subject).to be_success
-    end
-  end
+  #   it "form is valid" do
+  #     expect(subject).to be_success
+  #   end
+  # end
 end

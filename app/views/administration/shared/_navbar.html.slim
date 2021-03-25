@@ -40,6 +40,6 @@
           = image_tag current_user.avatar_url, class: 'rounded-circle', size: 24
         = user_menu_dropdown_body do
           = dropdown_link current_user, ""
-          = dropdown_link 'Settings', administration_user_path(current_user)
+          = dropdown_link 'Settings', "/administration/users/#{current_user.id}"
           .dropdown-divider
           = dropdown_link 'Sign out', destroy_user_session_path, method: :delete

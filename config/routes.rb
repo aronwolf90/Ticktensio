@@ -38,22 +38,9 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show
     resources :records, except: :show
 
-    resources :users, except: %i[index edit create destroy] do
+    resources :users, only: %i[] do
       scope module: :users do
         resources :records, only: :index
-      end
-    end
-
-    resource :archive, only: [], controller: :archive do
-      scope module: :archive do
-        resources :folders, except: %i[index show]
-      end
-    end
-
-    resource :wiki, only: [], controller: :wiki do
-      scope module: :wiki do
-        resources :categories, except: %i[index show]
-        resources :pages, only: %i[new create]
       end
     end
 
@@ -115,7 +102,7 @@ Rails.application.routes.draw do
       resources :project_comments, only: %i[create]
 
       resources :wiki_categories, only: %i[index show create update destroy]
-      resources :wiki_pages, only: %i[show update destroy]
+      resources :wiki_pages, only: %i[show create update destroy]
       resources :folders, only: %i[index show create update destroy]
       resources :user_issues, only: %i[index show]
       resources :events, only: %i[index create update destroy]

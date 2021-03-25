@@ -3,18 +3,14 @@
 module Api::V1
   module AttendanceEvents
     class UpdateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           optional(:attributes).schema do
-            optional(:"from-day").filled
-            optional(:"to-day").filled
-            optional(:"from-time").filled
-            optional(:"to-time").filled
-            optional(:description).filled
+            optional(:"from-day").filled(:string)
+            optional(:"to-day").filled(:string)
+            optional(:"from-time").filled(:string)
+            optional(:"to-time").filled(:string)
+            optional(:description).filled(:string)
           end
           optional(:relationships).schema do
             optional(:user).schema(RequiredBelongsToSchema)

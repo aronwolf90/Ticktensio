@@ -25,7 +25,7 @@ describe Api::V1::NotificationsReadeds::CreateForm do
     before { params[:data][:attributes][:"readed-at"] = "invalid" }
 
     it "it has an error: id must be filled" do
-      expect(subject.errors).to eq(
+      expect(subject.errors.to_h).to eq(
         data: {
           attributes: {
             "readed-at": ["must be a date time"]

@@ -14,7 +14,8 @@ RUN echo "export PATH=/app/bin:$PATH" >> ~/.profile && \
   bash openssh-client \
   nodejs yarn vim tmux \
   postgresql-dev \
-  grep curl python2
+  grep curl python2 \
+  shared-mime-info
 
 FROM base AS builder
 

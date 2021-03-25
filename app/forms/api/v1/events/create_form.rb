@@ -3,15 +3,11 @@
 module Api::V1
   module Events
     class CreateForm < ApiForm
-      @form = Dry::Validation.Schema do
-        configure do
-          predicates(ApiPredicates)
-        end
-
+      params do
         required(:data).schema do
           required(:attributes).schema do
-            required(:title).filled
-            required(:"start-time").filled
+            required(:title).filled(:string)
+            required(:"start-time").filled(:string)
           end
         end
       end
