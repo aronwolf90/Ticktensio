@@ -2,10 +2,10 @@
 
 module GoogleCalendars
   class ImportEventsOperation < ApplicationOperation
-    success :authorize
-    success :get_google_calendar_events
-    success :trigger_event_importers
-    success :save_sync_token
+    pass :authorize
+    pass :get_google_calendar_events
+    pass :trigger_event_importers
+    pass :save_sync_token
 
   private
     def authorize(ctx, organization:, **)

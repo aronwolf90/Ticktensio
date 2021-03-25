@@ -5,7 +5,7 @@ module Api::V1
     module GoogleIntegrations
       class DestroyOperation < ApiOperation
         step Policy::Pundit(::Calendars::GoogleIntegrationPolicy, :destroy?)
-        success :main_operation
+        pass :main_operation
 
       private
         def main_operation(ctx, organization:, **)

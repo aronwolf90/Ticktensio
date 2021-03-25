@@ -4,8 +4,8 @@ module Api::V1
   module NotificationsReadeds
     class CreateOperation < ApiOperation
       step ValidateStep.new(form: NotificationsReadeds::CreateForm)
-      success DeserializeStep.new(deserializer: NotificationsReadedDeserializer)
-      success :mutation
+      pass DeserializeStep.new(deserializer: NotificationsReadedDeserializer)
+      pass :mutation
 
     private
       def mutation(options, deserialized_params:, current_user:, **args)

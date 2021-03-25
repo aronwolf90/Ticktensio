@@ -2,11 +2,11 @@
 
 module GoogleCalendars
   class ExportEventOperation < ApplicationOperation
-    success :authorize
-    success :get_google_calendar_event
+    pass :authorize
+    pass :get_google_calendar_event
     step :check
-    success :call_google_api
-    success :update_event
+    pass :call_google_api
+    pass :update_event
 
   private
     def authorize(ctx, organization:, **)

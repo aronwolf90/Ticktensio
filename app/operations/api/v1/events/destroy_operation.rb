@@ -3,8 +3,8 @@
 module Api::V1
   module Events
     class DestroyOperation < ApiOperation
-      success Model(Event, :find)
-      success :main_operation
+      pass Model(Event, :find)
+      pass :main_operation
 
     private
       def main_operation(_, model:, organization:, **)

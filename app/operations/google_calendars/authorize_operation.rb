@@ -2,8 +2,8 @@
 
 module GoogleCalendars
   class AuthorizeOperation < ApplicationOperation
-    success :authorize
-    success :persist
+    pass :authorize
+    pass :persist
 
   private
     def authorize(ctx, organization:, **)

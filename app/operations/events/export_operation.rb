@@ -2,8 +2,8 @@
 
 module Events
   class ExportOperation < ApplicationOperation
-    success :exporters!
-    success :trigger_exporters
+    pass :exporters!
+    pass :trigger_exporters
 
   private
     def exporters!(options, **)

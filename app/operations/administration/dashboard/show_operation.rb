@@ -3,10 +3,10 @@
 module Administration
   module Dashboard
     class ShowOperation < ApplicationOperation
-      success ProjectsStep
-      success WorkedIssuesStep
-      success AssignedIssuesStep
-      success :events
+      pass ProjectsStep
+      pass WorkedIssuesStep
+      pass AssignedIssuesStep
+      pass :events
 
       private
         def events(options, params:, **)

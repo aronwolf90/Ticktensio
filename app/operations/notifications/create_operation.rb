@@ -3,7 +3,7 @@
 
 module Notifications
   class CreateOperation < ApplicationOperation
-    success :call_create_mutation
+    pass :call_create_mutation
 
   private
     def call_create_mutation(options, params:, **args)

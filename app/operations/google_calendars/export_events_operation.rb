@@ -2,7 +2,7 @@
 
 module GoogleCalendars
   class ExportEventsOperation < ApplicationOperation
-    success :trigger_export_events
+    pass :trigger_export_events
 
   private
     def trigger_export_events(_, organization:, **)

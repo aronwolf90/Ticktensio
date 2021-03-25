@@ -4,11 +4,11 @@ module GoogleCalendars
   class CreateCallbackOperation < ApplicationOperation
     include ApplicationHelper
 
-    success :get_authorization
-    success :create_google_calendar
-    success :create_web_hook
-    success :mutate
-    success :export_events
+    pass :get_authorization
+    pass :create_google_calendar
+    pass :create_web_hook
+    pass :mutate
+    pass :export_events
 
   private
     def get_authorization(ctx, code:, organization:, **)

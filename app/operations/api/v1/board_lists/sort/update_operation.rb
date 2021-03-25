@@ -5,7 +5,7 @@ module Api::V1
     module Sort
       class UpdateOperation < ApiOperation
         step ValidateStep.new(form: SortForm)
-        success ::BoardLists::SortStep
+        pass ::BoardLists::SortStep
       end
     end
   end

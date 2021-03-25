@@ -4,9 +4,9 @@ module MvcStandardCreateOperationConcern
   extend ActiveSupport::Concern
 
   included do |base|
-    success base::Nested(base.module_parent::NewOperation)
-    success MvcInjectStep.new(:current_user)
+    pass base::Nested(base.module_parent::NewOperation)
+    pass MvcInjectStep.new(:current_user)
     step base::Contract::Validate(key: :data)
-    success MvcCreateMutationStep
+    pass MvcCreateMutationStep
   end
 end

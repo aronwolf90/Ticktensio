@@ -3,9 +3,9 @@
 module Api::V1
   module Users
     class DestroyOperation < ApiOperation
-      success Model(User, :find)
-      success :destroy
-      success :update_subscription
+      pass Model(User, :find)
+      pass :destroy
+      pass :update_subscription
 
     private
       def destroy(options, model:, current_user:, **args)

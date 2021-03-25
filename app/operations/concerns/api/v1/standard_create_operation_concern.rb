@@ -5,12 +5,12 @@ module Api::V1
     extend ActiveSupport::Concern
 
     included do
-      success self::Model(@model, :new)
+      pass self::Model(@model, :new)
       step ValidateStep.new(form: @form)
-      success DeserializeStep.new(deserializer: @deserializer)
+      pass DeserializeStep.new(deserializer: @deserializer)
       step self::Policy::Pundit(@policy, :create?) if @policy
       unless @no_mutation_step
-        success CreateMutationStep
+        pass CreateMutationStep
       end
     end
   end

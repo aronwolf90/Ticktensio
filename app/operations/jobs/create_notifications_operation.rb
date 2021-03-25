@@ -2,8 +2,8 @@
 
 module Jobs
   class CreateNotificationsOperation < ApplicationOperation
-    success :get_data
-    success :call_create_mutation
+    pass :get_data
+    pass :call_create_mutation
 
   private
     def get_data(options, date:, **)

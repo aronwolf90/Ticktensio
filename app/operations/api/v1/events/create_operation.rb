@@ -8,9 +8,9 @@ module Api::V1
       @model = Event
       @policy = EventPolicy
       @no_mutation_step = true
-      success :organization
+      pass :organization
       include StandardCreateOperationConcern
-      success :main_operation
+      pass :main_operation
 
     private
       def organization(ctx, **)

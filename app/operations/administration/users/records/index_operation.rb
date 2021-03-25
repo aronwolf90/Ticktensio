@@ -3,10 +3,10 @@
 module Administration::Users
   module Records
     class IndexOperation < BaseOperation
-      success ParentStep.new(model: User, key: :user_id)
-      success MvcIndexParentModelStep.new(relation: :record_days, per: 5)
+      pass ParentStep.new(model: User, key: :user_id)
+      pass MvcIndexParentModelStep.new(relation: :record_days, per: 5)
       step Policy::Pundit(RecordPolicy, :index?)
-      success IndexMonthTimeStep
+      pass IndexMonthTimeStep
     end
   end
 end

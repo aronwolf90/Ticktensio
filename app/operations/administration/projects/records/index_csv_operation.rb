@@ -4,8 +4,8 @@ module Administration
   module Projects
     module Records
       class IndexCsvOperation < AdministrationOperation
-        success ParentStep.new(model: Project, key: :project_id)
-        success IndexParentModelStep.new(relation: :records)
+        pass ParentStep.new(model: Project, key: :project_id)
+        pass IndexParentModelStep.new(relation: :records)
         step Policy::Pundit(RecordPolicy, :index?)
       end
     end

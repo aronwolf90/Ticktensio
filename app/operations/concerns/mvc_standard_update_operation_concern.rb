@@ -10,7 +10,7 @@ module MvcStandardUpdateOperationConcern
     @mutation || StandardUpdateMutation
 
     base.const_set("Present", Class.new(Trailblazer::Operation) do
-      success model_step
+      pass model_step
       step self::Policy::Pundit(policy, :update?) if policy
       step self::Contract::Build(constant: form)
     end)
@@ -18,6 +18,6 @@ module MvcStandardUpdateOperationConcern
     step base::Nested(base::Present)
     step MvcInjectStep.new(:current_user)
     step base::Contract::Validate(key: :data)
-    success MvcUpdateMutationStep
+    pass MvcUpdateMutationStep
   end
 end

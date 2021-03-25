@@ -48,13 +48,13 @@ gem "attr_extras"
 gem "numeric"
 
 # Trailblazer
-gem "reform", "2.2"
+gem "reform"
 gem "reform-rails"
-gem "trailblazer", "2.1.0.rc1"
+gem "trailblazer"
 gem "trailblazer-cells"
-gem "trailblazer-context", "0.1.2"
-gem "trailblazer-operation", "~> 0.4.1"
-gem "trailblazer-rails", "~> 2.1"
+gem "trailblazer-context"
+gem "trailblazer-operation"
+gem "trailblazer-rails"
 
 # Template
 gem "simple_form"

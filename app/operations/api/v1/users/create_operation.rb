@@ -8,7 +8,7 @@ module Api::V1
       @model = User
       @policy = UserPolicy
       include StandardCreateOperationConcern
-      success :update_subscription
+      pass :update_subscription
 
       def update_subscription(options, **args)
         Organization.subscription&.update(

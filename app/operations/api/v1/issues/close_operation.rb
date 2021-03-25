@@ -3,8 +3,8 @@
 module Api::V1
   module Issues
     class CloseOperation < ApiOperation
-      success :model
-      success :main_operation
+      pass :model
+      pass :main_operation
 
     private
       def model(options, params:, **)

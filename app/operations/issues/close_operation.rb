@@ -2,7 +2,7 @@
 
 module Issues
   class CloseOperation < ApplicationOperation
-    success :close
+    pass :close
 
   private
     def close(options, model:, **)

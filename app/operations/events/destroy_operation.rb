@@ -2,8 +2,8 @@
 
 module Events
   class DestroyOperation < ApplicationOperation
-    success :destroy_event
-    success :export
+    pass :destroy_event
+    pass :export
 
   private
     def destroy_event(_, event:, **)

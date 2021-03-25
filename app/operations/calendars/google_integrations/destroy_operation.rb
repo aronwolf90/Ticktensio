@@ -3,7 +3,7 @@
 module Calendars
   module GoogleIntegrations
     class DestroyOperation < ApplicationOperation
-      success :remove_google_integration
+      pass :remove_google_integration
 
     private
       def remove_google_integration(ctx, organization:, **)

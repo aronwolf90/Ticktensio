@@ -4,11 +4,11 @@ module Api::V1
   module Issues
     class MoveOperation < ApiOperation
       step :validate
-      success :set_issue
-      success :set_board_list
-      success :set_before_issue
+      pass :set_issue
+      pass :set_board_list
+      pass :set_before_issue
       step :policy
-      success :mutate
+      pass :mutate
 
       def validate(ctx, params)
         ctx[:form] = Api::V1::Issues::MoveForm.call(params)

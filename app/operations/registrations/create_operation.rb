@@ -2,12 +2,12 @@
 
 module Registrations
   class CreateOperation < ApplicationOperation
-    success Nested(Registrations::NewOperation)
-    success MvcInjectStep.new(:current_user)
+    pass Nested(Registrations::NewOperation)
+    pass MvcInjectStep.new(:current_user)
     step Contract::Validate(key: :data)
     step :check_recaptcha
-    success MvcCreateMutationStep
-    success :send_wellcome_email
+    pass MvcCreateMutationStep
+    pass :send_wellcome_email
 
   private
     def check_recaptcha(_, recaptcha:, **)

@@ -3,10 +3,10 @@
 module Api::V1
   module TestOrganizations
     class CreateOperation < ApiOperation
-      success Model(Organization, :new)
+      pass Model(Organization, :new)
       step ValidateStep.new(form: Api::V1::Organizations::CreateForm)
-      success DeserializeStep.new(deserializer: Api::V1::TestOrganizationDeserializer)
-      success :mutation
+      pass DeserializeStep.new(deserializer: Api::V1::TestOrganizationDeserializer)
+      pass :mutation
 
     private
       def mutation(options, model:, current_user:, deserialized_params:, **args)

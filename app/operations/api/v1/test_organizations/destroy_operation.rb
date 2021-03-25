@@ -3,8 +3,8 @@
 module Api::V1
   module TestOrganizations
     class DestroyOperation < ApiOperation
-      success :model
-      success :mutation
+      pass :model
+      pass :mutation
 
     private
       def model(options, **)

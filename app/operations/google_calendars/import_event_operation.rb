@@ -2,10 +2,10 @@
 
 module GoogleCalendars
   class ImportEventOperation < ApplicationOperation
-    success :authorize
-    success :get_event
+    pass :authorize
+    pass :get_event
     step :check
-    success :save_or_delete_event
+    pass :save_or_delete_event
 
   private
     def authorize(ctx, organization:, **)

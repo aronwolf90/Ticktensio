@@ -3,11 +3,11 @@
 module Api::V1
   module Organizations
     class UpdateOperation < ApiOperation
-      success :model
+      pass :model
       step ValidateStep.new(form: UpdateForm)
-      success DeserializeStep.new(deserializer: OrganizationDeserializer)
+      pass DeserializeStep.new(deserializer: OrganizationDeserializer)
       step Policy::Pundit(OrganizationPolicy, :update?)
-      success UpdateMutationStep
+      pass UpdateMutationStep
 
     private
       def model(options, **)

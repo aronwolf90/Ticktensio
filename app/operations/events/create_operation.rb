@@ -2,8 +2,8 @@
 
 module Events
   class CreateOperation < ApplicationOperation
-    success :mutate
-    success :export
+    pass :mutate
+    pass :export
 
   private
     def mutate(_, model:, attributes:, **)
