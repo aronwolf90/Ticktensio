@@ -92,7 +92,7 @@ Given(/^I am signed in \(multitenant\)$/) do
   find('input[name="commit"]').click
 end
 
-Given(/^set "([^\"]*)" as current organization$/) do |tenant|
+Given(/^set "([^"]*)" as current organization$/) do |tenant|
   Apartment::Tenant.switch!(tenant)
 end
 
@@ -116,19 +116,19 @@ When(/^I navigate to sidekiq\/cron$/) do
   visit "http://admin:testtest@#{Settings.test_host}:#{Settings.test_port}/sidekiq/cron"
 end
 
-When(/^I navigate to "([^\"]*)"$/) do |link|
+When(/^I navigate to "([^"]*)"$/) do |link|
   visit link
 end
 
-When(/^I enter "([^\"]*)" into input named "([^\"]*)"$/) do |text, name|
+When(/^I enter "([^"]*)" into input named "([^"]*)"$/) do |text, name|
   fill_in name, with: text
 end
 
-When(/^I enter "([^\"]*)" into input "([^\"]*)"$/) do |text, element|
+When(/^I enter "([^"]*)" into input "([^"]*)"$/) do |text, element|
   find(element).set text
 end
 
-When(/^I check the input named "([^\"]*)"$/) do |name|
+When(/^I check the input named "([^"]*)"$/) do |name|
   check name, allow_label_click: true
 end
 
@@ -137,13 +137,13 @@ When(/^an acive issue exists$/) do
   find(".fa-play", match: :prefer_exact).click
 end
 
-When(/^I replace the text "([^\"]*)" from the markdown editor "([^\"]*)"$/) do |text, element|
+When(/^I replace the text "([^"]*)" from the markdown editor "([^"]*)"$/) do |text, element|
   expect(page).to have_css element
   js_comand = "$('#{element}')[0].editor.setValue('#{text}')"
   page.driver.browser.execute_script(js_comand)
 end
 
-When(/^I enter "([^\"]*)" into "([^\"]*)"$/) do |text, element|
+When(/^I enter "([^"]*)" into "([^"]*)"$/) do |text, element|
   expect(page).to have_css element
   find(element).set(text)
 end
@@ -153,47 +153,47 @@ When(/^I click on submit$/) do
   find('input[name="commit"], button[type="submit"]').click
 end
 
-When(/^I click on "([^\"]*)"$/) do |element|
+When(/^I click on "([^"]*)"$/) do |element|
   expect(page).to have_css element
   find(element, match: :prefer_exact).click
 end
 
-When(/^I click on "([^\"]*)" with "([^\"]*)"$/) do |element, text|
+When(/^I click on "([^"]*)" with "([^"]*)"$/) do |element, text|
   expect(page).to have_css element
   find(element, text: text, match: :prefer_exact).click
 end
 
-When(/^I click on link "([^\"]*)"$/) do |text|
+When(/^I click on link "([^"]*)"$/) do |text|
   expect(page).to have_text text
   find("a", text: text, match: :prefer_exact).click
 end
 
-When(/^I click on body link "([^\"]*)"$/) do |text|
+When(/^I click on body link "([^"]*)"$/) do |text|
   expect(page).to have_text text
   find(".body-content a", text: text, match: :prefer_exact).click
 end
 
-When(/^I click on aside link "([^\"]*)"$/) do |text|
+When(/^I click on aside link "([^"]*)"$/) do |text|
   expect(page).to have_text text
   find(".nav a", text: text, match: :prefer_exact).click
 end
 
-When(/^I click on navbar link "([^\"]*)"$/) do |text|
+When(/^I click on navbar link "([^"]*)"$/) do |text|
   expect(page).to have_text text
   find("nav.fixed-top a", text: text, match: :prefer_exact).click
   expect(page).to have_css("nav.fixed-top a.active", text: text)
 end
 
-When(/^I click on button "([^\"]*)"$/) do |text|
+When(/^I click on button "([^"]*)"$/) do |text|
   expect(page).to have_text text
   find("button", text: text, match: :prefer_exact).click
 end
 
-When(/^select "([^\"]*)" from select box "([^\"]*)"$/) do |text, name|
+When(/^select "([^"]*)" from select box "([^"]*)"$/) do |text, name|
   select text, from: name
 end
 
-When(/^I select the value "([^\"]*)" from select box "([^\"]*)"$/) do |value, name|
+When(/^I select the value "([^"]*)" from select box "([^"]*)"$/) do |value, name|
   option_xpath = "//*[@name='#{name}']/option[@value='#{value}']"
   option = find(:xpath, option_xpath).text
   select option, from: name
@@ -208,7 +208,7 @@ When(/^Travel to 11.06.2018 17:00:00$/) do
   Timecop.travel("11.06.2018 17:00:00")
 end
 
-When(/^I drag "([^\"]*)" to "([^\"]*)"$/) do |from, to|
+When(/^I drag "([^"]*)" to "([^"]*)"$/) do |from, to|
   source_node = page.find(from)
   target_node = page.find(to)
   source_node.drag_to(target_node, delay: 2)
@@ -222,11 +222,11 @@ When(/^I set due at to one hour from now$/) do
   )
 end
 
-When(/^I sleep "([^\"]*)" seconds/) do |seconds|
+When(/^I sleep "([^"]*)" seconds/) do |seconds|
   sleep seconds.to_i.seconds
 end
 
-When(/^I reload until "([^\"]*)" with text "([^\"]*)"$/) do |element, text|
+When(/^I reload until "([^"]*)" with text "([^"]*)"$/) do |element, text|
   40.times do
     page.driver.browser.navigate.refresh
     break if page.has_css?(element, wait: 1.second, text: text)
@@ -234,50 +234,50 @@ When(/^I reload until "([^\"]*)" with text "([^\"]*)"$/) do |element, text|
   end
 end
 
-When(/^I wait until "([^\"]*)" has the text "([^\"]*)"$/) do |element, text|
+When(/^I wait until "([^"]*)" has the text "([^"]*)"$/) do |element, text|
   page.has_css?(element, wait: 80.seconds, text: text)
 end
 
-Then(/^the page contain the text "([^\"]*)"$/) do |text|
+Then(/^the page contain the text "([^"]*)"$/) do |text|
   expect(page).to have_content text
 end
 
-Then (/^I enter enter a file into input named "([^\"]*)"$/) do |element|
+Then (/^I enter enter a file into input named "([^"]*)"$/) do |element|
   input = find(:xpath, "//label[contains(text(), '#{element}')]")[:for]
   page.attach_file(input, "/etc/hostname", visible: false)
 end
 
-Then(/^the page does not contain the text "([^\"]*)"$/) do |text|
+Then(/^the page does not contain the text "([^"]*)"$/) do |text|
   expect(page).not_to have_content text
 end
 
-Then(/^the element "([^\"]*)" contain the text "([^\"]*)"$/) do |element, text|
+Then(/^the element "([^"]*)" contain the text "([^"]*)"$/) do |element, text|
   expect(page).to have_css element
   within element do
     expect(page).to have_content text
   end
 end
 
-Then(/^the element "([^\"]*)" does not contain the text "([^\"]*)"$/) do |element, text|
+Then(/^the element "([^"]*)" does not contain the text "([^"]*)"$/) do |element, text|
   expect(page).to have_css element
   within element do
     expect(page).not_to have_content text
   end
 end
 
-Then(/^the page contain the element "([^\"]*)"$/) do |text|
+Then(/^the page contain the element "([^"]*)"$/) do |text|
   expect(page).to have_css text
 end
 
-Then(/^the page does not contain the element "([^\"]*)"$/) do |text|
+Then(/^the page does not contain the element "([^"]*)"$/) do |text|
   expect(page).not_to have_css text
 end
 
-Then(/^I am on page "([^\"]*)"$/) do |link|
+Then(/^I am on page "([^"]*)"$/) do |link|
   expect(page).to have_current_path(link)
 end
 
-Then(/^the input "([^\"]*)" has the value "([^\"]*)"$/) do |input_name, value|
+Then(/^the input "([^"]*)" has the value "([^"]*)"$/) do |input_name, value|
   expect(find_field(input_name).value).to eq value
 end
 
@@ -289,7 +289,7 @@ Then(/the page contain the year of one week ago/) do
   expect(page).to have_content 2.week.ago.year
 end
 
-Then(/the input "([^\"]*)" is checked/) do |input|
+Then(/the input "([^"]*)" is checked/) do |input|
   expect(page).to have_checked_field(input, visible: false)
 end
 
