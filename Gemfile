@@ -38,7 +38,7 @@ gem "pgreset"
 gem "pundit"
 gem "rein"
 gem "rest-client"
-gem "sidekiq", "~> 6.0.7"
+gem "sidekiq"
 gem "sidekiq-cron"
 gem "uglifier"
 gem "webpacker", "~> 3.5.3"
@@ -73,7 +73,7 @@ end
 
 group :development do
   gem "guard-rspec", require: false
-  gem "listen", ">= 3.0.5", "<= 3.3.3"
+  gem "listen"
   gem "rubocop", "~> 0.73.0"
   gem "rubocop-rails_config", "~> 0.6.2", require: false
   gem "rubocop-rspec", require: false

@@ -326,7 +326,7 @@ GEM
       bcrypt (~> 3.1)
       jwt (~> 1.5)
       rails (>= 4.2)
-    listen (3.3.3)
+    listen (3.5.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.9.0)
@@ -349,7 +349,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_magick (4.11.0)
-    mini_mime (1.0.2)
+    mini_mime (1.0.3)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
@@ -389,8 +389,6 @@ GEM
     raabro (1.4.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-protection (2.1.0)
-      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -517,11 +515,10 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    sidekiq (6.0.7)
+    sidekiq (6.2.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
@@ -667,7 +664,7 @@ DEPENDENCIES
   jsonpath
   kaminari (~> 1.2.1)
   knock
-  listen (>= 3.0.5, <= 3.3.3)
+  listen
   lp_csv_exportable
   migration_data
   numeric
@@ -693,7 +690,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-raven
   shoulda-matchers
-  sidekiq (~> 6.0.7)
+  sidekiq
   sidekiq-cron
   sidekiq_alive
   simple_form
