@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cat <<EOT > ${FILEDIR}env.js
+window.env = {
+  SENTRY_DNS: '$SENTRY_DNS',
+  STRIPE_PUBLIC_KEY: '$STRIPE_PUBLIC_KEY',
+  GOOGLE_ANALYTICS_ID: '$GOOGLE_ANALYTICS_ID'
+}
+EOT

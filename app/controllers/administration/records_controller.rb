@@ -6,6 +6,6 @@ module Administration
     side_menu :administration
     namespace Administration::Records
 
-    public :index, :new, :edit, :create, :update, :destroy
+    public :index
   end
 end

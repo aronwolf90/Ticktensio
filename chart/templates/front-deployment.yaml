@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-front
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}-front
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}-front
+    spec:
+      containers:
+        - name: frontend
+          image: "{{ .Values.image.frontend }}"
+          ports:
+            - name: http
+              containerPort: 9001
+          livenessProbe:
+            httpGet:
+              path: health_check.json
+              port: http
+          readinessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: health_check.json
+              port: http
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-config
+          - secretRef:
+              name: {{ .Release.Name }}-mailer
+          - secretRef:
+              name: {{ .Release.Name }}-google
+          - secretRef:
+              name: {{ .Release.Name }}-payment

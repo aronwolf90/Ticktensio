@@ -4,7 +4,6 @@ metadata:
   name: {{ .Release.Name }}-install-task
   annotations:
     "helm.sh/hook": post-install
-    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
 spec:
   template:
     metadata:
@@ -13,12 +12,17 @@ spec:
         name: {{ .Release.Name }}-install-task
     spec:
       restartPolicy: Never
+      initContainers:
+      - name: check-db-ready
+        image: docker.io/bitnami/postgresql:11.7.0-debian-10-r9
+        command: ['sh', '-c', 
+          "until pg_isready -h {{ .Release.Name }}-postgresql -p 5432 -U postgres; 
+          do echo waiting for database; sleep 2; done;"]
       containers:
         - name: install
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: "{{ .Values.image.backend }}"
           command: ["/bin/sh","-c"]
-          args: ["sleep {{ .Values.installJobDelay }}; rake db:schema:load; rake db:seed"]
-          imagePullPolicy: "Always"
+          args: ["sleep {{ .Values.installJobDelay }}; rake db:schema:load; SEED_ADMIN_ACTIVE=true rake db:seed"]
           envFrom:
           - configMapRef:
               name: {{ .Release.Name }}-config

@@ -11,3 +11,4 @@ tmp/
 .gitlab-ci.yml
 chart/
 docker-compose.gitlab.yml
+skaffold.yaml

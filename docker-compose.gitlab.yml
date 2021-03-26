@@ -1,5 +1,21 @@
 version: '2.2'
 services:
+  nginx:
+    image: nginx
+    dns: 8.8.8.8
+    networks:
+      default:
+        aliases:
+          - test-organization.lvh.me
+          - lvh.me
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+      - frontend
+
   db:
     command: "-c fsync=off"
     image: postgres:11
@@ -51,7 +67,7 @@ services:
       - "8025:8025"
 
   worker:
-    image: $IMAGE
+    image: $BACKEND_IMAGE
     dns: 8.8.8.8
     command: sh -c "RAILS_ENV=production bundle exec sidekiq -C config/sidekiq.yml"
     environment:
@@ -77,18 +93,13 @@ services:
       redis:
         condition: service_started
 
-  app:
-    image: $IMAGE
+  backend:
+    image: $BACKEND_IMAGE
     dns: 8.8.8.8
-    command:  sh -c "RAILS_ENV=production rails s -b '0.0.0.0'"
+    command:  sh -c "RAILS_ENV=production rails s -b '0.0.0.0' -p 3001"
     volumes:
       - ./screenshots/:/app/screenshots/
       - ./log/:/app/log/
-    networks:
-      default:
-        aliases:
-          - test-organization.lvh.me
-          - lvh.me
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db/database
       - AWS_KEY=access_key
@@ -110,7 +121,7 @@ services:
       - RAILS_ENV=production
       - PAYMENT_TOKEN=YWRtaW46dGVzdHRlc3Q=
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       db:
         condition: service_healthy
@@ -122,6 +133,14 @@ services:
         condition: service_started
       worker:
         condition: service_started
+
+  frontend:
+    image: $FRONTEND_IMAGE
+    dns: 8.8.8.8
+    environment:
+      - STRIPE_PUBLIC_KEY=pk_test_jnjnLmEpUo9tbTIEjKKGPr62007x2iQKkM
+    ports:
+      - "9001:9001"
 
   selenium:
     image: selenium/standalone-chrome-debug

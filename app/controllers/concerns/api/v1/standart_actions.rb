@@ -8,7 +8,7 @@ module Api
       protected
         def index
           authorize model_class, :index? if model_class.present?
-          page = (params[:page] || 1).to_i
+          page = (/[0-9]+/.match?(params[:page]) ? params[:page] : 1).to_i
           per_page = per_page() || 10
 
           render_json_api json: query.offset(per_page * (page - 1)).limit(per_page), meta: {

@@ -110,7 +110,7 @@ class GoogleCalendarClient
   end
 
   def authentication_url
-    client.authorization_uri.to_s
+    enabled? && client.authorization_uri.to_s
   end
 
   def client
@@ -139,5 +139,9 @@ class GoogleCalendarClient
         authorization_uri: Settings.google_calendar.authorization_uri,
         token_credential_uri: Settings.google_calendar.token_credential_uri
       }.compact
+    end
+
+    def enabled?
+      !!Settings.google_calendar.client_secret
     end
 end

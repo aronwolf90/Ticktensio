@@ -19,9 +19,15 @@ spec:
       labels:
         app.kubernetes.io/name: {{ .Release.Name }}-worker
     spec:
+      initContainers:
+      - name: check-db-ready
+        image: docker.io/bitnami/postgresql:11.7.0-debian-10-r9
+        command: ['sh', '-c', 
+          "until pg_isready -h {{ .Release.Name }}-postgresql -p 5432 -U postgres; 
+          do echo waiting for database; sleep 2; done;"]
       containers:
         - name: web
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: "{{ .Values.image.backend }}"
           command: ["/bin/sh","-c"]
           args: ["bundle exec sidekiq -C config/sidekiq.yml"]
           envFrom:

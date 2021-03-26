@@ -76,7 +76,6 @@ Scenario: Create Issue with minimal attributes
   And I click on "#complexity .text"
   And I sleep "1" seconds
   And I click on "#complexity .item:nth-child(2)"
-  Then the element "#complexity .text" contain the text "0.5"
   And I reload the page
   Then the element "#complexity .text" contain the text "0.5"
   # Comment

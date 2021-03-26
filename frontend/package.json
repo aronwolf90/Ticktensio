@@ -1,0 +1,112 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleDirectories": [
+      "<rootDir>/node_modules",
+      "node_modules/bootstrap-vue",
+      "src",
+      "../app/javascript",
+      "test"
+    ],
+    "clearMocks": true,
+    "setupFiles": [
+      "./test/helper.js"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      ".*\\.(js)$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@sentry/vue": "^6.3.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-import": "^1.13.3",
+    "bdd-lazy-var": "^2.6.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^7.9.0",
+    "html-webpack-plugin": "^5.3.1",
+    "is-plain-object": "^5.0.0",
+    "jest": "^26.6.3",
+    "jest-transform-stub": "^2.0.0",
+    "jest-when": "^3.2.1",
+    "mocha": "^8.3.2",
+    "mochapack": "^2.0.6",
+    "npx": "^10.2.2",
+    "nyc": "^15.1.0",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass-loader": "^11.0.1",
+    "source-map-loader": "^2.0.1",
+    "vue-jest": "^3.0.7",
+    "vue-loader": "^15.9.6",
+    "vue-style-loader": "^4.1.3",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.7.1"
+  },
+  "dependencies": {
+    "@toast-ui/vue-editor": "^2.5.1",
+    "@vue/test-utils": "^1.1.4",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "dateformat": "^4.5.1",
+    "dayspan-vuetify": "^0.4.0",
+    "file-loader": "^6.2.0",
+    "font-awesome": "4.7.0",
+    "jquery": "^3.6.0",
+    "jquery-ujs": "^1.2.2",
+    "js-cookie": "^2.2.1",
+    "node-sass": "^5.0.0",
+    "popper.js": "^1.16.1",
+    "sortablejs": "1.7.0",
+    "tui-editor": "^1.4.10",
+    "vue": "^2.6.12",
+    "vue-analytics": "^5.22.1",
+    "vue-bootstrap-datetimepicker": "^5.0.1",
+    "vue-plugin-load-script": "^1.3.2",
+    "vue-router": "^3.5.1",
+    "vue-search-select": "^2.9.3",
+    "vue-select": "^3.11.2",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.6.2",
+    "vuex-jsonapi-client": "^2.13.2"
+  },
+  "scripts": {
+    "build": "webpack --config build/webpack.config.dev.js",
+    "dev": "./generate_env.sh; webpack-dev-server --config build/webpack.config.dev.js",
+    "test": "jest"
+  }
+}

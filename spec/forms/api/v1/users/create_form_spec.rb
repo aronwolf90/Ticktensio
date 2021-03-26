@@ -47,4 +47,10 @@ describe Api::V1::Users::CreateForm do
 
     it { is_expected.to be_failure }
   end
+
+  context "when email already exist" do
+    before { create(:admin, email: "test@lvh.me")  }
+
+    it { is_expected.to be_failure }
+  end
 end

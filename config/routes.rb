@@ -36,7 +36,9 @@ Rails.application.routes.draw do
     root to: "dashboards#show"
 
     resource :dashboard, only: :show
-    resources :records, except: :show
+    scope format: true, constraints: { format: "csv" } do
+      resources :records, only: :index
+    end
 
     resources :users, only: %i[] do
       scope module: :users do

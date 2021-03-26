@@ -12,7 +12,14 @@ class SessionsController < Devise::SessionsController
       end
     else
       super
+      cookies[:csrf_token] = helpers.form_authenticity_token
+      cookies[:signed_in] = true
     end
+  end
+
+  def destroy
+    super
+    cookies[:signed_in] = nil
   end
 
 private

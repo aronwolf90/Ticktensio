@@ -1,5 +1,3 @@
-image: $CONTAINER_RELEASE_IMAGE
-
 stages:
   - build
   - test
@@ -8,7 +6,10 @@ stages:
   - tag_latest
 
 variables:
-  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  BACKEND_IMAGE: $CI_REGISTRY_IMAGE:backend_$CI_COMMIT_SHA
+  FRONTEND_IMAGE: $CI_REGISTRY_IMAGE:frontend_$CI_COMMIT_SHA
+  BACKEND_DEV_IMAGE: $CI_REGISTRY_IMAGE:backend_dev_$CI_COMMIT_SHA
+  FRONTEND_DEV_IMAGE: $CI_REGISTRY_IMAGE:frontend_dev_$CI_COMMIT_SHA
   POSTGRES_PASSWORD: password
   POSTGRES_DB: root
   POSTGRES_USER: root
@@ -22,7 +23,7 @@ variables:
   AWS_ENDPOINT: http://minio:9000
   TZ: Europe/Berlin
 
-build:
+build backend:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -32,7 +33,23 @@ build:
   script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CONTAINER_RELEASE_IMAGE --cache=true
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $BACKEND_DEV_IMAGE --cache=true --target=builder
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $BACKEND_IMAGE --cache=true
+  only:
+    - merge_requests
+
+build frontend:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR/frontend --dockerfile $CI_PROJECT_DIR/frontend/Dockerfile --destination $FRONTEND_DEV_IMAGE --cache=true --target=builder
+    - /kaniko/executor --context $CI_PROJECT_DIR/frontend --dockerfile $CI_PROJECT_DIR/frontend/Dockerfile --destination $FRONTEND_IMAGE --cache=true
   only:
     - merge_requests
 
@@ -47,6 +64,7 @@ helm_lint:
     - helm lint -f values.yaml chart/
 
 traceroute:
+  image: $BACKEND_DEV_IMAGE 
   stage: test
   services:
     - postgres:latest
@@ -57,36 +75,29 @@ traceroute:
     - FAIL_ON_ERROR=1 DATABASE_URL=postgres://root:password@postgres/root rake traceroute
 
 rspec:
+  image: $BACKEND_DEV_IMAGE 
   stage: test
   services:
     - postgres:latest
   variables:
     COVERAGE: "true"
-  cache:
-    paths:
-      - node_modules/
-      - .yarn
   only:
     - merge_requests
   script:
-    - cp -rT /app .
-    - yarn install --cache-folder .yarn
+    - cd /app
     - rspec
 
 eslint:
+  image: $FRONTEND_DEV_IMAGE 
   stage: test
-  cache:
-    paths:
-      - node_modules/
-      - .yarn
   only:
     - merge_requests
   script:
-    - cp -rT /app .
-    - yarn install --cache-folder .yarn
-    - yarn eslint
+    - cd /app
+    - yarn eslint .
 
 rubocop:
+  image: $BACKEND_DEV_IMAGE 
   stage: test
   only:
     - merge_requests
@@ -94,17 +105,13 @@ rubocop:
     - cd /app
     - rubocop
 
-mocha:
+jest:
+  image: $FRONTEND_DEV_IMAGE 
   stage: test
-  cache:
-    paths:
-    - node_modules/
-    - .yarn
   only:
     - merge_requests
   script:
-    - cp -rT /app .
-    - yarn install --cache-folder .yarn
+    - cd /app
     - yarn test
 
 .cucumber:
@@ -141,11 +148,10 @@ mocha:
     refs:
       - merge_requests
   script:
-    - export IMAGE=$CONTAINER_RELEASE_IMAGE
     - docker-compose -f docker-compose.gitlab.yml run payment mix ecto.setup
-    - docker-compose -f docker-compose.gitlab.yml run app rake db:setup
+    - docker-compose -f docker-compose.gitlab.yml run backend rake db:setup
     - docker-compose -f docker-compose.gitlab.yml up -d
-    - docker-compose -f docker-compose.gitlab.yml run -e CI_NODE_INDEX=$CI_NODE_INDEX -e CI_NODE_TOTAL=$CI_NODE_TOTAL -e REGEX=$REGEX -e RAILS_ENV=test app bin/ci_split_cucumber.sh
+    - docker-compose -f docker-compose.gitlab.yml run -e CI_NODE_INDEX=$CI_NODE_INDEX -e CI_NODE_TOTAL=$CI_NODE_TOTAL -e REGEX=$REGEX -e RAILS_ENV=test backend bin/ci_split_cucumber.sh
 
 cucumber_api:
   extends: .cucumber
@@ -175,8 +181,8 @@ deploy:
     - helm upgrade cmc-production chart --install --wait
         --timeout=800s
         -f values.yaml
-        --set image.tag=$CI_COMMIT_SHA
-        --set image.repository=$CI_REGISTRY_IMAGE
+        --set image.backend=$BACKEND_IMAGE
+        --set image.frontend=$FRONTEND_IMAGE
         --set postgresql.postgresqlPassword=$DB_PASSWORD
         --set postgresql.postgresqlPostgresPassword=$DB_PASSWORD
         --set admin_password=$ADMIN_PASSWORD
@@ -190,6 +196,7 @@ deploy:
         --set reCaptcha.secretKey=$RECAPTCHA_SECRET_KEY
         --set reCaptcha.ignoreKey=$RECAPTCHA_IGNORE_KEY
         --set payment.secret.token=$PAYMENT_TOKEN
+        --set googleAnalyticsId=$GOOGLE_ANALYTICS_ID
         --namespace cmc-production
   only:
     - master
@@ -208,15 +215,28 @@ test_production:
   only:
     - master
 
-tag_latest:
+tag latest backend:
   stage: tag_latest
   image: docker:latest
   services:
     - docker:dind
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker pull $CONTAINER_RELEASE_IMAGE
-    - docker tag $CONTAINER_RELEASE_IMAGE $CI_REGISTRY_IMAGE:latest
-    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker pull $BACKEND_IMAGE
+    - docker tag $BACKEND_IMAGE $CI_REGISTRY_IMAGE:backend
+    - docker push $CI_REGISTRY_IMAGE:backend
+  only:
+    - master
+
+tag latest frontend:
+  stage: tag_latest
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker pull $FRONTEND_IMAGE
+    - docker tag $FRONTEND_IMAGE $CI_REGISTRY_IMAGE:frontend
+    - docker push $CI_REGISTRY_IMAGE:frontend
   only:
     - master

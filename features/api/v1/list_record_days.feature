@@ -27,10 +27,6 @@ Scenario: Get /api/v1/record_days
             },
             "records": {
               "data": [
-                {
-                  "id": "1",
-                  "type": "records"
-                }
               ]
             }
           },

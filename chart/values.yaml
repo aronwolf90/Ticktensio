@@ -1,8 +1,8 @@
 multiTenant: false
 admin_password: repl_passowrd
 image:
-  repository: registry.gitlab.com/cmc_system/cmc
-  tag: latest
+  backend: "registry.gitlab.com/cmc_system/cmc-backend:latest"
+  frontend: "registry.gitlab.com/cmc_system/cmc-frontend:latest"
 webDeployment:
   secretKeyBase: 5d1ee3590cdac32f527d1c4c835578859ecbd50ac1b03ff6d4689c19d732b5c9050ceb66d8b625cacadb1c1228095a7fd855933ce1881075a577e7cb8aea3432
   sentryDsn:

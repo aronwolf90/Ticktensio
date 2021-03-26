@@ -22,6 +22,10 @@ module Api
         :destroy_operation
       )
 
+      after_action do
+        cookies[:csrf_token] = helpers.form_authenticity_token
+      end
+
       private
         def render_errors(errors)
           render json: Api::ErrorSerializer.(errors),

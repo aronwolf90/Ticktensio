@@ -11,7 +11,7 @@ html
       window.stripe_public_key = '#{Settings.stripe_public_key}'
       window.sentry_dsn = '#{Settings.sentry_dsn}' 
 
-    = javascript_pack_tag 'application'
+    = javascript_include_tag 'http://test-organization.lvh.me:9001/main.js'
     
     = Settings.administration_header_js&.html_safe
   body

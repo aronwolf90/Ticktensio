@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-back
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}-back
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Release.Name }}-back
+    spec:
+      initContainers:
+      - name: check-db-ready
+        image: docker.io/bitnami/postgresql:11.7.0-debian-10-r9
+        command: ['sh', '-c', 
+          "until pg_isready -h {{ .Release.Name }}-postgresql -p 5432 -U postgres; 
+          do echo waiting for database; sleep 2; done;"]
+      containers:
+        - name: web
+          image: "{{ .Values.image.backend }}"
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-config
+          - secretRef:
+              name: {{ .Release.Name }}-mailer
+          - secretRef:
+              name: {{ .Release.Name }}-google
+          - secretRef:
+              name: {{ .Release.Name }}-payment
+          volumeMounts:
+            {{- if .Values.webPersistence.enabled }}
+            - name: files
+              mountPath: /app/uploads
+            {{- end }}
+            - mountPath: /assets
+              name: assets
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - "cp -r /app/public/* /assets"
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health_check
+              port: http
+          readinessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /api/v1/health_check
+              port: http
+
+        - image: nginx:1.14-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /assets
+              name: assets
+              readOnly: true
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-conf
+              subPath: nginx.conf
+              readOnly: true
+
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: {{ .Release.Name }}-nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: assets
+          emptyDir: {}

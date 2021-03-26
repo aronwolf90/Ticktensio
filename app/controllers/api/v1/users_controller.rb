@@ -7,7 +7,7 @@ module Api::V1
     model_class User
     serializer UserSerializer
 
-    per_page 300
+    per_page 10
 
     public :index, :show, :create, :update
 

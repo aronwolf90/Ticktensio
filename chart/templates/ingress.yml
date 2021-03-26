@@ -1,9 +1,9 @@
-{{- if .Values.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-ingress
   annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
     {{- range $key, $value := .Values.ingress.annotations }}
       {{ $key }}: {{ $value | quote }}
     {{- end }}
@@ -12,15 +12,19 @@ spec:
     - host: {{ .Values.url }}
       http:
         paths:
-          - path: /
+          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?$
             backend:
-              serviceName: {{ .Release.Name }}-service
+              serviceName: {{ .Release.Name }}-back
+              servicePort: 80
+          - path: /.*
+            backend:
+              serviceName: {{ .Release.Name }}-front
               servicePort: 80
     {{- if .Values.multiTenant }}
     - host: "*.{{ .Values.url }}"
       http:
         paths:
-          - path: /
+          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?
             backend:
               serviceName: {{ .Release.Name }}-service
               servicePort: 80
@@ -30,4 +34,3 @@ spec:
   tls:
 {{ toYaml .Values.ingress.tls | indent 4 }}
   {{- end -}}
-{{- end -}}

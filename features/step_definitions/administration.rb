@@ -139,7 +139,7 @@ end
 
 When(/^I replace the text "([^"]*)" from the markdown editor "([^"]*)"$/) do |text, element|
   expect(page).to have_css element
-  js_comand = "$('#{element}')[0].editor.setValue('#{text}')"
+  js_comand = "$('#{element}')[0].__vue__.$refs.editor.invoke('setMarkdown','#{text}'); $('#{element}')[0].__vue__.$refs.editor.$emit('change')"
   page.driver.browser.execute_script(js_comand)
 end
 

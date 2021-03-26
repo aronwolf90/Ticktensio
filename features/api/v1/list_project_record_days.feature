@@ -15,7 +15,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 0
           },
           "relationships": {
             "project": {
@@ -26,10 +27,6 @@ Scenario: Get /api/v1/record_days
             },
             "records": {
               "data": [
-                {
-                  "id": "1",
-                  "type": "records"
-                }
               ]
             }
           },
@@ -44,7 +41,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 7200
           },
           "relationships": {
             "project": {
@@ -73,7 +71,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 5400
           },
           "relationships": {
             "project": {
@@ -102,7 +101,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 72000
           },
           "relationships": {
             "project": {
@@ -131,7 +131,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 25200
           },
           "relationships": {
             "project": {
@@ -160,7 +161,8 @@ Scenario: Get /api/v1/record_days
           "id": "<.+>",
           "type": "project-record-days",
           "attributes": {
-            "day": "<.+>"
+            "day": "<.+>",
+            "spent-time": 32400
           },
           "relationships": {
             "project": {

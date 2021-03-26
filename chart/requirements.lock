@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
-  repository: https://kubernetes-charts.storage.googleapis.com/
+  repository: https://charts.helm.sh/stable
   version: 8.6.4
 - name: redis
-  repository: https://kubernetes-charts.storage.googleapis.com/
+  repository: https://charts.helm.sh/stable
   version: 10.5.3
-digest: sha256:dcdb93ecee88f3f743d4a2835eeba6706ad68fb31fe2fa42bab8677cad2bd2d5
-generated: "2020-06-01T00:28:29.974073494+02:00"
+digest: sha256:d2addedb9944bbe1be188e2048c5c1e99cbd78c848f47009d06a3f6590c4288a
+generated: "2021-05-01T22:35:43.250036116+02:00"

@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta4
+kind: Config
+metadata:
+  name: Ticktensio
+build:
+  artifacts:
+    - image: registry.gitlab.com/cmc_system/cmc-backend
+      context: .
+      docker:
+        dockerfile: Dockerfile
+    - image: registry.gitlab.com/cmc_system/cmc-frontend
+      context: ./frontend
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+deploy:
+  helm:
+    releases:
+    - name: my-release
+      chartPath: ./chart
+      artifactOverrides:
+        image.backend: registry.gitlab.com/cmc_system/cmc-backend
+        image.frontend: registry.gitlab.com/cmc_system/cmc-frontend
+      setValues:
+        url: minikube.info
+  kubeContext: minikube

@@ -30,3 +30,4 @@ data:
   RECAPTCHA_SITE_KEY: '{{ .Values.reCaptcha.siteKey }}'
   RECAPTCHA_SECRET_KEY: '{{ .Values.reCaptcha.secretKey }}'
   RECAPTCHA_IGNORE_KEY: '{{ .Values.reCaptcha.ignoreKey }}'
+  GOOGLE_ANALYTICS_ID: '{{ .Values.googleAnalyticsId }}'

@@ -13,6 +13,11 @@ module Api::V1
           end
         end
       end
+
+      rule(data: { attributes: :email }) do
+        next if User.find_by(email: value).blank?
+        key.failure("already exists")
+      end
     end
   end
 end

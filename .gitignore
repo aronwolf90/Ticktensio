@@ -28,13 +28,14 @@
 coverage/
 tags
 
-/node_modules
+node_modules
 /yarn-error.log
 
 .byebug_history
 /public/packs
 /public/packs-test
 /node_modules
+/frontend/node_modules
 /databases
 /bundle
 public/uploads
@@ -48,3 +49,5 @@ public/assets/
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+frontend/dist/*
+frontend/env.js
