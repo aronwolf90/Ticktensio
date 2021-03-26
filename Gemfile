@@ -100,7 +100,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "cucumber-rails", "2.0.0", require: false
+  gem "cucumber-rails", require: false
   gem "db-query-matchers"
   gem "jsonpath", require: false
   gem "selenium-webdriver", require: false
