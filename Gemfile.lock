@@ -530,7 +530,7 @@ GEM
     sidekiq-cron (1.2.0)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
-    sidekiq_alive (2.0.4)
+    sidekiq_alive (2.0.5)
       sidekiq
     signet (0.15.0)
       addressable (~> 2.3)
