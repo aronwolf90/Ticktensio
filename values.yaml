@@ -10,7 +10,6 @@ postgresql:
       cpu: 0Mi
       memory: 200Mi
 ingress:
-  enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     kubernetes.io/ingress.class: nginx
