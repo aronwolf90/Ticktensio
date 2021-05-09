@@ -24,9 +24,13 @@ spec:
     - host: "*.{{ .Values.url }}"
       http:
         paths:
-          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?
+          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?$
             backend:
-              serviceName: {{ .Release.Name }}-service
+              serviceName: {{ .Release.Name }}-back
+              servicePort: 80
+          - path: /.*
+            backend:
+              serviceName: {{ .Release.Name }}-front
               servicePort: 80
     {{- end }}
 
