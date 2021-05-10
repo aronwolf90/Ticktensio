@@ -1,6 +1,6 @@
 <template lang='pug'>
 b-navbar.fixed-top(toggleable="sm" type="dark")
-  button#side-toggle-btn
+  button#side-toggle-btn(@click='handleClickToogleBtn')
     i.fa.fa-2x.fa-angle-right
   router-link(to="/administration")
     img(:src="require('images/logo.png')", width="80")
@@ -81,6 +81,11 @@ export default {
     },
     currentUserName () {
       return `${Utils.attribute(this.currentUser, 'firstname')} ${Utils.attribute(this.currentUser, 'lastname')}`
+    }
+  },
+  methods: {
+    handleClickToogleBtn () {
+      toggleAsideExpanded()
     }
   }
 }

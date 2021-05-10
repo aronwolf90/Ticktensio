@@ -5,7 +5,6 @@ import Vuex from 'vuex'
 import store from 'store'
 import router from 'router'
 import jQuery from 'jquery'
-import 'bootstrap'
 import App from 'app.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -41,20 +40,6 @@ window.toggleAsideExpanded = toggleAsideExpanded
 store.commit('setEndpoint', '/api/v1/')
 store.commit('vue', Vue)
 
-// jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
-//  icons: {
-//    time: 'fa fa-clock',
-//    date: 'fa fa-calendar',
-//    up: 'fa fa-arrow-up',
-//    down: 'fa fa-arrow-down',
-//    previous: 'fa fa-chevron-left',
-//    next: 'fa fa-chevron-right',
-//    today: 'fa fa-calendar-check',
-//    clear: 'fa fa-trash-alt',
-//    close: 'fa fa-times-circle'
-//  }
-// })
-
 if (env.SENTRY_DSN) {
   Sentry.init({
     Vue: Vue,
@@ -69,12 +54,10 @@ if (env.GOOGLE_ANALYTICS_ID) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  new Vue({ // eslint-disable-line no-new
-    el: '#app',
-    render: h => h(App),
-    store,
-    router
-  })
-  $('head').append(`<meta name="csrf-token" content="${Cookies.get('csrf_token')}" />`)
+new Vue({ // eslint-disable-line no-new
+  el: '#app',
+  render: h => h(App),
+  store,
+  router
 })
+$('head').append(`<meta name="csrf-token" content="${Cookies.get('csrf_token')}" />`)

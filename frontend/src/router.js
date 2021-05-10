@@ -359,7 +359,6 @@ router.beforeEach((to, from, next) => {
     store.commit('setPrevPath', from.path)
   }
   toggleAsideExpanded(false) /* eslint-disable-line no-undef */
-  $('.navbar-collapse').collapse('hide') /* eslint-disable-line no-undef */
 
   if (!Cookies.get('signed_in')) {
     location.replace('/users/sign_in')
