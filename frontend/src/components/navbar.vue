@@ -55,12 +55,17 @@ b-navbar.fixed-top(toggleable="sm" type="dark")
           b-dropdown-item {{ currentUserName }}
           b-dropdown-item(:to="`/administration/users/${currentUserId}`") Settings
           .dropdown-divider
-          b-dropdown-item(href="/users/sign_out", "data-method"="delete") Sign out
+          form(method="post", action="/users/sign_out")
+            li
+              input(type="hidden", name="authenticity_token", :value="csfrToken")
+              input(type="hidden", name="_method", value="delete")
+              input.dropdown-item(type="submit", value="Sign out")
 </template>
 
 <script>
 import MenuItem from 'components/menu-item'
 import NotificationBell from 'components/notification_bell'
+import Cookies from 'js-cookie'
 import { Utils } from 'vuex-jsonapi-client'
 
 export default {
@@ -81,6 +86,9 @@ export default {
     },
     currentUserName () {
       return `${Utils.attribute(this.currentUser, 'firstname')} ${Utils.attribute(this.currentUser, 'lastname')}`
+    },
+    csfrToken () {
+      return Cookies.get('csrf_token')
     }
   },
   methods: {

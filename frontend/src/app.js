@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 
 import store from 'store'
 import router from 'router'
-import jQuery from 'jquery'
 import App from 'app.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -15,12 +14,6 @@ import LoadScript from 'vue-plugin-load-script'
 import Cookies from 'js-cookie'
 import * as Sentry from '@sentry/vue'
 import VueAnalytics from 'vue-analytics'
-
-const $ = jQuery
-window.jQuery = jQuery
-window.$ = $
-
-require('jquery-ujs')
 
 if (Cookies.get('csrf_token')) {
   store.getters.axios.defaults.headers.common['X-CSRF-Token'] =
@@ -60,4 +53,3 @@ new Vue({ // eslint-disable-line no-new
   store,
   router
 })
-$('head').append(`<meta name="csrf-token" content="${Cookies.get('csrf_token')}" />`)
