@@ -1,8 +1,6 @@
 'use strict'
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const { VueLoaderPlugin } = require('vue-loader')
 module.exports = {
@@ -74,9 +72,7 @@ module.exports = {
       template: 'index.html',
       hash: true,
       base: '/'
-    }),
-    new CompressionPlugin(),
-    new UglifyJsPlugin()
+    })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

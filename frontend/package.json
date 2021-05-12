@@ -76,6 +76,7 @@
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^5.28.0",
+    "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.7.1"
   },
@@ -107,8 +108,9 @@
     "vuex-jsonapi-client": "^2.13.2"
   },
   "scripts": {
-    "build": "webpack --config build/webpack.config.dev.js",
+    "build": "webpack --config build/webpack.config.prod.js",
     "dev": "./generate_env.sh; webpack-dev-server --config build/webpack.config.dev.js",
-    "test": "jest"
+    "test": "jest",
+    "analize": "webpack --config build/webpack.config.dev.js --profile --json"
   }
 }

@@ -12,27 +12,17 @@
 </template>
 
 <script>
-import LeftAside from 'components/left-aside'
-import ProjectsLeftAside from 'components/projects-left-aside'
-import ProjectsDetailLeftAside from 'components/projects-detail-left-aside'
-import WikiAside from 'components/wiki-aside'
-import ArchiveAside from 'components/archive-aside'
-import UsersAside from 'components/users-aside'
-import ContactsAside from 'components/contacts-aside'
-import AdminAside from 'components/admin-aside'
-import UserDetailAside from 'components/user-detail-aside'
-
 export default {
   components: {
-    LeftAside,
-    ProjectsLeftAside,
-    ProjectsDetailLeftAside,
-    WikiAside,
-    ArchiveAside,
-    UsersAside,
-    ContactsAside,
-    AdminAside,
-    UserDetailAside
+    LeftAside: () => import('components/left-aside'),
+    ProjectsLeftAside: () => import('components/projects-left-aside'),
+    ProjectsDetailLeftAside: () => import('components/projects-detail-left-aside'),
+    WikiAside: () => import('components/wiki-aside'),
+    ArchiveAside: () => import('components/archive-aside'),
+    UsersAside: () => import('components/users-aside'),
+    ContactsAside: () => import('components/contacts-aside'),
+    AdminAside: () => import('components/admin-aside'),
+    UserDetailAside: () => import('components/user-detail-aside')
   },
   computed: {
     aside () {
