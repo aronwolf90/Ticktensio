@@ -50,10 +50,14 @@
 </template>
 
 <script>
+import BtnSubmit from 'components/btn-submit'
 import { Utils } from 'vuex-jsonapi-client'
 
 export default {
   props: ['eventId'],
+  components: {
+    BtnSubmit
+  },
   data () {
     return {
       saving: false,

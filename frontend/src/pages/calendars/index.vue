@@ -8,14 +8,8 @@
             .i.fa.fa-calendar-check-o.d-md-none(aria-hidden="true")
             .d-none.d-md-block Today
         slot(name='view', v-bind='{currentType, types}')
-          a.btn.btn-outline-secondary.dropdown-toggle(
-            data-toggle='dropdown',
-            aria-haspopup='true',
-            aria-expanded='false'
-          )
-            | {{ currentType.label }}
-          .dropdown-menu
-            a.dropdown-item(
+          b-dropdown(variant="outline-secondary", :text="currentType.label")
+            b-dropdown-item(
               @click='currentType = type',
               v-for='type in types'
             ) {{ type.label }}
@@ -375,6 +369,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  @import 'stylesheets/administration/vuetify'
+</style>
 
 <style lang="sass" scoped>
 .calendar

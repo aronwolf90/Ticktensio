@@ -54,8 +54,13 @@
 </template>
 
 <script>
+import BtnSubmit from 'components/btn-submit'
+
 export default {
   props: ['eventId'],
+  components: {
+    BtnSubmit
+  },
   data () {
     return {
       saving: false,
