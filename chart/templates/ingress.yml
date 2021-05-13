@@ -12,7 +12,7 @@ spec:
     - host: {{ .Values.url }}
       http:
         paths:
-          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?$
+          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*|.*csv)?$
             backend:
               serviceName: {{ .Release.Name }}-back
               servicePort: 80
@@ -24,7 +24,7 @@ spec:
     - host: "*.{{ .Values.url }}"
       http:
         paths:
-          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*)?$
+          - path: /(api/.*|users.*|registrations.*|admin_area.*|favicon.ico|sidekiq/.*|administration/dashboard|packs/.*|.*csv)?$
             backend:
               serviceName: {{ .Release.Name }}-back
               servicePort: 80
