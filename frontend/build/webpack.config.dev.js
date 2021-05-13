@@ -64,7 +64,7 @@ module.exports = {
     filename: '[name].js',
     sourceMapFilename: '[name].js.map'
   },
-  devtool: 'source-map',
+  devtool: 'eval',
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({

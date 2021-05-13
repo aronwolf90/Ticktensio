@@ -14,6 +14,7 @@ import LoadScript from 'vue-plugin-load-script'
 import Cookies from 'js-cookie'
 import * as Sentry from '@sentry/vue'
 import VueAnalytics from 'vue-analytics'
+import RouterPrefetch from 'vue-router-prefetch'
 
 if (Cookies.get('csrf_token')) {
   store.getters.axios.defaults.headers.common['X-CSRF-Token'] =
@@ -23,6 +24,7 @@ if (Cookies.get('csrf_token')) {
 require.context('images', true)
 
 Vue.use(VueRouter)
+Vue.use(RouterPrefetch)
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
 Vue.use(LoadScript)
