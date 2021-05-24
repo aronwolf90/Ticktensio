@@ -35,7 +35,8 @@ module.exports = {
             options: {
               sassOptions: {
                 indentedSyntax: true
-              }
+              },
+              additionalData: '@import stylesheets/variables'
             }
           }
         ]

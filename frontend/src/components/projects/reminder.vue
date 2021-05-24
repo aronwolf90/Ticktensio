@@ -44,10 +44,10 @@ export default {
   .reminder
     padding-top: 4px
     padding-bottom: 4px
-    margin-left: -18px
-    margin-right: -18px
-    padding-left: 18px
-    padding-right: 18px
+    margin-left: -$right-aside-margin
+    margin-right: -$right-aside-margin
+    padding-left: $right-aside-margin
+    padding-right: $right-aside-margin
     border-bottom: 1px solid #e7e7e7
     .title
       overflow: hidden

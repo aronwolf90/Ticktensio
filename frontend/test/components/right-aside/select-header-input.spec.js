@@ -1,8 +1,8 @@
-import DetailsSelectHeaderInput from 'components/details-select-header-input'
+import RightAsideSelectHeaderInput from 'components/right-aside/select-header-input'
 
-describe('DetailsSelectHeaderInput', () => {
+describe('components/right-aside/select-header-input.vue', () => {
   const factory = ({ propsData = {} } = {}) => {
-    return createWrapper(DetailsSelectHeaderInput, {
+    return createWrapper(RightAsideSelectHeaderInput, {
       stubs: {
         'router-link': true
       },

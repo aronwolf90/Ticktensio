@@ -1,5 +1,5 @@
 import Contact from 'components/projects/contact'
-import DetailsStringInput from 'components/details-string-input'
+import DetailsStringInput from 'components/right-aside/string-input'
 
 describe('components/projects/contact.vue', () => {
   const contactRef = { id: 1, type: 'contacts' }
@@ -35,7 +35,7 @@ describe('components/projects/contact.vue', () => {
         }
       },
       stubs: {
-        'details-select-header-input': true,
+        'right-aside-select-header-input': true,
         'details-string-input': true
       }
     })
@@ -44,7 +44,7 @@ describe('components/projects/contact.vue', () => {
   describe('header', () => {
     it('render header', () => {
       const wrapper = factory()
-      const header = wrapper.find('details-select-header-input-stub')
+      const header = wrapper.find('right-aside-select-header-input-stub')
 
       header.vm.$emit('search', 'test', () => {})
 

@@ -1,25 +1,27 @@
-import DetailsDateTime from 'components/details-date-time'
+import RightAsideDateTime from 'components/right-aside/date-time'
 
 describe('components/details-date-time.vue', () => {
-  it('form and input is present', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true
+  const factory = (options = {}) => {
+    return createWrapper(RightAsideDateTime, {
+      attachToDocument: true,
+      ...options
     })
+  }
+
+  it('form and input is present', () => {
+    const wrapper = factory()
     expect(wrapper.find('form').exists()).toBeTruthy()
     expect(wrapper.find('input').exists()).toBeTruthy()
   })
 
   it('send submit event when submit is called', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true
-    })
+    const wrapper = factory()
     wrapper.find('[type="submit"]').trigger('click')
     expect(wrapper.emitted().submit).not.toEqual(null)
   })
 
   it('show spinner when when isSaving==false', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         isSaving: false
       }
@@ -28,8 +30,7 @@ describe('components/details-date-time.vue', () => {
   })
 
   it('show spinner when when isSaving==true', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         isSaving: true
       }
@@ -38,8 +39,7 @@ describe('components/details-date-time.vue', () => {
   })
 
   it('show submit button when isPersisted==true', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         isPersisted: true
       }
@@ -48,8 +48,7 @@ describe('components/details-date-time.vue', () => {
   })
 
   it('do not show submit button when isPersisted==true', () => {
-    const wrapper = createWrapper(DetailsDateTime, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         isPersisted: false
       }

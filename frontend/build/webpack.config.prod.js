@@ -1,10 +1,11 @@
 'use strict'
+
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
 const { VueLoaderPlugin } = require('vue-loader')
+
 module.exports = {
   mode: 'production',
   resolve: {
@@ -37,7 +38,8 @@ module.exports = {
             options: {
               sassOptions: {
                 indentedSyntax: true
-              }
+              },
+              additionalData: '@import stylesheets/variables'
             }
           }
         ]

@@ -7,9 +7,8 @@
     )
 
     br
-    br
 
-    ul.list-group.list-lines
+    b-list-group(flush="")
       index-list-item(
         v-for="contact in contacts",
         resource="contacts",

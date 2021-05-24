@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import DetailSelect from 'components/detail-select'
+import DetailSelect from 'components/right-aside/select'
 
 export default {
   components: {

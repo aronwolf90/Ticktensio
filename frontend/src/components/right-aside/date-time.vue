@@ -1,5 +1,5 @@
 <template lang='pug'>
-  right-aside-item.details-date-time(:label="label", :label-for="id")
+  right-aside-item.right-aside-date-time(:label="label", :label-for="id")
     template(v-slot:content="")
       b-form.details-date-time(@submit="submit")
         b-input-group.group
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Datetimepicker from './datetimepicker'
-import RightAsideItem from 'components/right-aside-item'
+import Datetimepicker from 'components/datetimepicker'
+import RightAsideItem from 'components/right-aside/item'
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-.details-date-time
+.right-aside-date-time
   form
     margin-left: -12px
     .group

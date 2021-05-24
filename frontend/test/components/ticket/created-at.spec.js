@@ -1,5 +1,5 @@
 import TicketCreatedAt from 'components/ticket/created-at'
-import RightAsideItem from 'components/right-aside-item'
+import RightAsideItem from 'components/right-aside/item'
 
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */

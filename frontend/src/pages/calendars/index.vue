@@ -371,7 +371,7 @@ export default {
 </script>
 
 <style lang="sass">
-  @import 'stylesheets/administration/vuetify'
+  @import 'stylesheets/vuetify'
 </style>
 
 <style lang="sass" scoped>

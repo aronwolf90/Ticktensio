@@ -1,9 +1,15 @@
-import DetailsStringInput from 'components/details-string-input'
+import RightAsideStringInput from 'components/right-aside/string-input'
 
-describe('components/details-string-input.vue', () => {
-  it('show value on non edit mode', () => {
-    const wrapper = createWrapper(DetailsStringInput, {
+describe('components/right-aside/string-input.vue', () => {
+  const factory = (options = {}) => {
+    return createWrapper(RightAsideStringInput, {
       attachToDocument: true,
+      ...options
+    })
+  }
+
+  it('show value on non edit mode', () => {
+    const wrapper = factory({
       propsData: {
         value: 'test text',
         editMode: false
@@ -13,8 +19,7 @@ describe('components/details-string-input.vue', () => {
   })
 
   it('show value on edit mode', async () => {
-    const wrapper = createWrapper(DetailsStringInput, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         value: 'test text',
         editMode: true
@@ -26,8 +31,7 @@ describe('components/details-string-input.vue', () => {
   })
 
   it('show value on edit mode', async () => {
-    const wrapper = createWrapper(DetailsStringInput, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         editMode: true,
         value: 'test text'
@@ -39,8 +43,7 @@ describe('components/details-string-input.vue', () => {
   })
 
   it('changes to edit mode when edit btn is clicked', async () => {
-    const wrapper = createWrapper(DetailsStringInput, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         editMode: false,
         value: 'test text'
@@ -52,8 +55,7 @@ describe('components/details-string-input.vue', () => {
   })
 
   it('emit value when input change', async () => {
-    const wrapper = createWrapper(DetailsStringInput, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         editMode: true,
         value: ''
@@ -67,8 +69,7 @@ describe('components/details-string-input.vue', () => {
   })
 
   it('spinner works correctly', async () => {
-    const wrapper = createWrapper(DetailsStringInput, {
-      attachToDocument: true,
+    const wrapper = factory({
       propsData: {
         editMode: true
       }

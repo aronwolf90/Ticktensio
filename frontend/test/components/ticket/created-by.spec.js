@@ -1,5 +1,5 @@
 import TicketCreatedBy from 'components/ticket/created-by'
-import RightAsideItem from 'components/right-aside-item'
+import RightAsideItem from 'components/right-aside/item'
 
 describe('TicketCreatedBy', () => {
   const issue = {

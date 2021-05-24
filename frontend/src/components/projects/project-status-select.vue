@@ -1,6 +1,6 @@
 <template lang='pug'>
   #project-status-select
-    detail-select(
+    right-aside-select(
       label="Status",
       :options='options',
       :item='item',
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import DetailSelect from 'components/detail-select'
+import RightAsideSelect from 'components/right-aside/select'
 import { Utils } from 'vuex-jsonapi-client'
 
 export default {
   components: {
-    DetailSelect
+    RightAsideSelect
   },
   computed: {
     project () {

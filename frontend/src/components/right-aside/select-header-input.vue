@@ -1,13 +1,16 @@
 <template lang='pug'>
-  b-form.details-string-input(
+  b-form.right-aside-select-header-input(
     @submit.prevent="submit",
     :id="id"
   )
     b-input-group(v-if="internEditMode")
-      b-form-input(
+      v-select.flex-fill(
         v-model="value",
-        :placeholder="placeholder",
-        :id="`${id}-input`"
+        :id="`${id}-input`",
+        :options="options"
+        @search="search",
+        :getOptionLabel="getOptionLabel",
+        :filterable="false"
       )
       b-input-group-append
         b-button(
@@ -24,19 +27,26 @@
         @click="internEditMode=true"
       )
           .fa.fa-edit
-      .text(v-if="value") {{ value }}
-      .placeholder(v-else="") {{ placeholder }}
+      router-link(:to="link").font-weight-bold.text {{ text }}
       .clearfix
 </template>
 
 <script>
+import VSelect from 'vue-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
 
 export default {
+  components: {
+    VSelect
+  },
   props: {
-    value: String,
-    placeholder: String,
+    value: Object,
     editMode: Boolean,
-    id: String
+    id: String,
+    options: Array,
+    text: String,
+    link: String,
+    getOptionLabel: Function
   },
   data () {
     return {
@@ -45,6 +55,9 @@ export default {
     }
   },
   methods: {
+    search (loading, search) {
+      this.$emit('search', loading, search)
+    },
     submit () {
       this.isSaving = true
       this.$emit('submit')
@@ -69,14 +82,8 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-  .details-string-input
-    .text
-      word-break: break-word;
-    .placeholder
-      color: rgba(191, 191, 191, 0.87)
-    input::placeholder
-      color: rgba(191, 191, 191, 0.87)
-    input
-      padding: 3px
-      height: auto
+.right-aside-select-header-input
+  padding-top: $right-aside-margin
+  .text
+    color: grey
 </style>

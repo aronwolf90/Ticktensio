@@ -32,9 +32,9 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-  .reminder-list
-    padding-left: 17px
-    padding-right: 17px
-    color: grey
-    border-bottom: 1px solid #e7e7e7
+.reminder-list
+  padding-left: $right-aside-margin
+  padding-right: $right-aside-margin
+  color: grey
+  border-bottom: 1px solid #e7e7e7
 </style>

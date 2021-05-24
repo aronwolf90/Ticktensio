@@ -1,6 +1,6 @@
-import RightAsideItem from 'components/right-aside-item'
+import RightAsideItem from 'components/right-aside/item'
 
-describe('components/right-aside-item.vue', () => {
+describe('components/right-aside/item.vue', () => {
   it('renders the component correctly', () => {
     const wrapper = createWrapper(RightAsideItem, {
       propsData: {

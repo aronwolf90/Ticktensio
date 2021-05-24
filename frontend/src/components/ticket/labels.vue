@@ -34,7 +34,7 @@ import { Utils } from 'vuex-jsonapi-client'
 import LabelModal from 'components/label-modal'
 import LabelModalIndex from 'components/label-modal-index'
 import VSelect from 'vue-select'
-import RightAsideItem from 'components/right-aside-item'
+import RightAsideItem from 'components/right-aside/item'
 
 export default {
   props: ['issueRef'],
@@ -93,16 +93,16 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-  .select
-    margin-left: -5px
-  .header
-    margin-right: 5px
-  a.title
-    color: grey !important
-  .fa.fa-plus
-    color: grey !important
-  .pointer
-    cursor: pointer
+.select
+  margin-left: -5px
+.header
+  margin-right: 5px
+a.title
+  color: grey !important
+.fa.fa-plus
+  color: grey !important
+.pointer
+  cursor: pointer
 </style>
 
 <style lang='sass'>

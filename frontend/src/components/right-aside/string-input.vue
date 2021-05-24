@@ -1,16 +1,13 @@
 <template lang='pug'>
-  b-form.details-select-header-input(
+  b-form.details-string-input(
     @submit.prevent="submit",
     :id="id"
   )
     b-input-group(v-if="internEditMode")
-      v-select.flex-fill(
+      b-form-input(
         v-model="value",
-        :id="`${id}-input`",
-        :options="options"
-        @search="search",
-        :getOptionLabel="getOptionLabel",
-        :filterable="false"
+        :placeholder="placeholder",
+        :id="`${id}-input`"
       )
       b-input-group-append
         b-button(
@@ -20,33 +17,25 @@
         )
           .fa.fa-spinner.fa-spin(v-if='isSaving')
           template(v-else='') ok
-    span(v-else="")
-      b-button.float-right(
+    .d-flex(v-else="")
+      .text.flex-fill(v-if="value") {{ value }}
+      .placeholder.p-2.flex-fill(v-else="") {{ placeholder }}
+      b-button.align-self-start(
         variant="light",
         size="sm",
         @click="internEditMode=true"
       )
-          .fa.fa-edit
-      router-link(:to="link").font-weight-bold.text {{ text }}
-      .clearfix
+        i.fa.fa-edit
 </template>
 
 <script>
-import VSelect from 'vue-select'
-import 'vue-search-select/dist/VueSearchSelect.css'
 
 export default {
-  components: {
-    VSelect
-  },
   props: {
-    value: Object,
+    value: String,
+    placeholder: String,
     editMode: Boolean,
-    id: String,
-    options: Array,
-    text: String,
-    link: String,
-    getOptionLabel: Function
+    id: String
   },
   data () {
     return {
@@ -55,9 +44,6 @@ export default {
     }
   },
   methods: {
-    search (loading, search) {
-      this.$emit('search', loading, search)
-    },
     submit () {
       this.isSaving = true
       this.$emit('submit')
@@ -82,7 +68,14 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-.details-select-header-input
-  .text
-    color: grey
+.details-string-input
+  .text, .plceholder
+    word-break: break-word;
+    padding-top: 3px;
+  .placeholder
+    color: rgba(191, 191, 191, 0.87)
+  input::placeholder
+    color: rgba(191, 191, 191, 0.87)
+  input
+    height: auto
 </style>

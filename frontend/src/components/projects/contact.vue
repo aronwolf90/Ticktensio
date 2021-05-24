@@ -1,17 +1,17 @@
 <template lang='pug'>
-  right-aside-item.spent-time
+  right-aside-item
     template(v-slot:header="")
-      details-select-header-input(
-      v-model="idValue",
-      :editMode.sync="idEditMode",
-      :options="contactOptions",
-      @submit="submitId",
-      :getOptionLabel="getContactLabel",
-      id="contact-id",
-      text="Contact",
-      :link="contactLink",
-      @search="searchForContact"
-    )
+      right-aside-select-header-input(
+        v-model="idValue",
+        :editMode.sync="idEditMode",
+        :options="contactOptions",
+        @submit="submitId",
+        :getOptionLabel="getContactLabel",
+        id="contact-id",
+        text="Contact",
+        :link="contactLink",
+        @search="searchForContact"
+      )
     template(v-slot:content="")
       details-string-input(
         v-model="nameValue",
@@ -38,14 +38,14 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import DetailsStringInput from 'components/details-string-input'
-import DetailsSelectHeaderInput from 'components/details-select-header-input'
-import RightAsideItem from 'components/right-aside-item'
+import DetailsStringInput from 'components/right-aside/string-input'
+import RightAsideSelectHeaderInput from 'components/right-aside/select-header-input'
+import RightAsideItem from 'components/right-aside/item'
 
 export default {
   components: {
     DetailsStringInput,
-    DetailsSelectHeaderInput,
+    RightAsideSelectHeaderInput,
     RightAsideItem
   },
   computed: {
@@ -166,9 +166,3 @@ export default {
   }
 }
 </script>
-
-<style lang='sass' scoped>
-.spent-time
-  .header-text
-    margin-bottom: 5px
-</style>

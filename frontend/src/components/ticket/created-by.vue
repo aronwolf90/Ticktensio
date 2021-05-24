@@ -8,7 +8,7 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import RightAsideItem from 'components/right-aside-item'
+import RightAsideItem from 'components/right-aside/item'
 
 export default {
   props: {

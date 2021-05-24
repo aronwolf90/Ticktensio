@@ -11,7 +11,7 @@
 
 <script>
 import { Utils } from 'vuex-jsonapi-client'
-import detailsDateTime from 'components/details-date-time'
+import detailsDateTime from 'components/right-aside/date-time'
 
 export default {
   components: {

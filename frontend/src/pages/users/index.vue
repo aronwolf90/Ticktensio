@@ -25,7 +25,7 @@
            b-button(variant="success", to="/administration/users/new") New user
 
      br
-     br
+
      b-list-group(flush="")
        b-list-group-item.list-lines(v-for="user in users")
          b-link.text-dark(:to="`/administration/users/${user.id}`")

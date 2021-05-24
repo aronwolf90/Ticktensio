@@ -100,6 +100,24 @@ export default {
 </script>
 
 <style lang='sass'>
+.navbar
+  background-color: $main-color
+  color: white
+  .fa
+    color: white
+
+  button
+    color: white
+    background-color: Transparent
+    border: none
+
+  #side-toggle-btn
+    display: none
+
+  @media only screen and (max-width: 600px)
+    #side-toggle-btn
+      display: block
+
 .right-menu
   .dropdown-toggle
     padding: 0
