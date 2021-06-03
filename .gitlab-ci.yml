@@ -203,6 +203,7 @@ deploy:
 
 test_production:
   stage: test_production
+  image: $BACKEND_DEV_IMAGE 
   services:
     - name: selenium/standalone-chrome-debug
       alias: selenium
