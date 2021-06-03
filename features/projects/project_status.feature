@@ -36,6 +36,7 @@ Scenario: move project status
   When I click on link "Projects"
   Then the page contain the text "Test project 10"
   And the page contain the text "New"
+  And I sleep "1" seconds
   When I drag "#project-status-1" to "#project-status-3"
   Then the element ".project-status:last-of-type" contain the text "New"
   When I reload the page

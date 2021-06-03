@@ -5,8 +5,16 @@ class ApplicationMutation
   attr_private :attributes, :user
 
   def self.call(*args)
+    @retries ||= 0
     Rails.logger.debug [self, args]
     new(*args).tap(&:call).model
+  rescue ActiveRecord::StatementInvalid
+    @retries += 1
+    if @retries <= 1
+      retry
+    else
+      raise
+    end
   end
 
   def initialize(model:, user: nil, **attributes)
