@@ -94,7 +94,6 @@
     "js-cookie": "^2.2.1",
     "node-sass": "^5.0.0",
     "popper.js": "^1.16.1",
-    "sortablejs": "1.7.0",
     "tui-editor": "^1.4.10",
     "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",

@@ -13,7 +13,7 @@
             .fa.fa-plus
             |&nbsp add list
 
-    draggable.body.issues-board-body(v-model="boardLists")
+    draggable.body.issues-board-body(v-model="boardLists", :options="{ delay: 200, touchStartThreshold: 5, delayOnTouchOnly: true }", @end="end")
       list(
         v-for='boardList in boardLists',
         :key='boardList.id',
@@ -51,8 +51,14 @@ export default {
         return this.$store.getters['board/boardLists']
       },
       set (boardLists) {
+        console.log("hiiii")
         this.$store.dispatch('board/sortBoardLists', boardLists)
       }
+    }
+  },
+  methods: {
+    end () {
+      console.log("haaa")
     }
   }
 }

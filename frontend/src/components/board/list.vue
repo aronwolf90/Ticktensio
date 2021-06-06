@@ -1,39 +1,43 @@
 <template lang='pug'>
-  .card.column(v-if='boardList')
-    .card-header
-      .text.pull-left {{ name }}
-      router-link.btn.btn-sm.btn-outline-secondary.pull-right(
-        :to="`board_lists/${listId}/issues/new`"
-      )
-        .fa.fa-plus
-      router-link.btn.btn-sm.btn-link.pull-right.text-muted(:to="editLink")
-        .fa.fa-edit
-      div.pull-right(v-if="showComplexity")
-        b-badge {{ complexity }}
-      .clearfix
-    draggable.body(v-model="issues", :options="{group:'issues'}")
-      issue(
-        v-for='issue in issues',
-        :key='issue.id',
-        :issue-id="issue.id",
-        :board-list-id="boardList.id",
-        :id="`list-issue-${issue.id}`",
-        class="list-issue"
-      )
-    .more(v-if='showMore')
-      .text(v-on:click.self='loadMore') Load more
-
+list(
+  v-model="issues",
+  v-if="boardList",
+  @load-more="loadMore",
+	:show-more="showMore"
+)
+  template(v-slot:header="")
+    .text.pull-left {{ name }}
+    router-link.btn.btn-sm.btn-outline-secondary.pull-right(
+      :to="`board_lists/${listId}/issues/new`"
+    )
+      .fa.fa-plus
+    router-link.btn.btn-sm.btn-link.pull-right.text-muted(:to="editLink")
+      .fa.fa-edit
+    div.pull-right(v-if="showComplexity")
+      b-badge {{ complexity }}
+    .clearfix
+  template(v-slot:items="")
+    issue(
+      v-for='issue in issues',
+      :key='issue.id',
+      :issue-id="issue.id",
+      :board-list-id="boardList.id",
+      :id="`list-issue-${issue.id}`",
+      class="list-issue"
+    )
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import issue from './issue'
 import { Utils } from 'vuex-jsonapi-client'
+import list from 'components/boards/list'
 
 export default {
   components: {
     draggable,
-    'issue': issue
+    'issue': issue,
+		list
   },
   props: { 'list-id': { required: true } },
   created () {
@@ -91,29 +95,3 @@ export default {
   }
 }
 </script>
-
-<style lang='sass' scoped>
-  .column
-    display: inline-block
-    vertical-align: text-top
-    margin-right: 13px
-    width: 300px
-    .body
-      background-color: #fbfbfb
-      min-height: 20px
-      .issue
-        margin: 5px
-        box-shadow: 0 1px 2px rgba(186,186,186,0.5)
-        .issue-body
-          padding: 0.5rem
-          .text
-            overflow: hidden
-            text-overflow: ellipsis
-    .more
-      text-align: center
-      .text
-        display: inline-block
-        &:hover
-          text-decoration: underline
-          cursor: pointer
-</style>

@@ -43,16 +43,3 @@ export default {
 }
 
 </script>
-
-<style lang='sass' scoped>
-  .issue
-    margin: 5px
-    box-shadow: 0 1px 2px rgba(186,186,186,0.5)
-    .issue-body
-      padding: 0.5rem
-      .text
-        overflow: hidden
-        text-overflow: ellipsis
-        a
-          color: black
-</style>

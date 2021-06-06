@@ -65,10 +65,10 @@ Scenario: move issue to other board
   And I click on link "Test project"
   And I click on link "Tickets"
   Then the element "#side-body" contain the text "Backlog"
-  When I drag "#list-issue-4" to "#list-issue-5"
-  Then the element "#column-5 .list-issue:last-of-type" contain the text "Test issue 4"
+  When I drag "#list-issue-5" to "#list-issue-1 .labels .badge"
+  Then the element "#column-4 .list-issue:last-of-type" contain the text "Test issue 5"
   When I reload the page
-  Then the element "#column-5 .list-issue:last-of-type" contain the text "Test issue 4"
+  Then the element "#column-4 .list-issue:last-of-type" contain the text "Test issue 5"
   And the page contain the text "Test project"
 
 @javascript

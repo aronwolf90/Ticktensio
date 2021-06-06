@@ -1,29 +1,29 @@
 <template lang='pug'>
-  .card.column(v-if='projectBoardList')
-    .card-header
-      .text.pull-left {{ name }}
-      router-link.btn.btn-sm.btn-link.pull-right.text-muted(:to="editLink")
-        .fa.fa-edit
+list(
+  v-model="projects",
+  v-if="projectBoardList",
+  @load-more="loadMore",
+	:show-more="showMore",
+  @change="change"
+)
+  template(v-slot:header="")
+    .text.pull-left {{ name }}
+    router-link.btn.btn-sm.btn-link.pull-right.text-muted(:to="editLink")
+      .fa.fa-edit
+    .clearfix
 
-      .clearfix
-    draggable.body(
-      v-model="projects",
-      :options="{group:'projects'}",
-      @change="change"
+  template(v-slot:items="")
+    project(
+      v-for='project in projects',
+      :key='project.id',
+      :project-id="project.id",
+      :id="`list-project-${project.id}`",
+      class="list-project"
     )
-      project(
-        v-for='project in projects',
-        :key='project.id',
-        :project-id="project.id",
-        :id="`list-project-${project.id}`",
-        class="list-project"
-      )
-    .more(v-if='showMore')
-      .text(v-on:click.self='loadMore') Load more
-
 </template>
 
 <script>
+import list from 'components/boards/list'
 import draggable from 'vuedraggable'
 import project from './project'
 import { Utils } from 'vuex-jsonapi-client'
@@ -31,7 +31,8 @@ import { Utils } from 'vuex-jsonapi-client'
 export default {
   components: {
     draggable,
-    project
+    project,
+    list
   },
   props: { 'project-board-list-id': { required: true } },
   computed: {
@@ -82,29 +83,3 @@ export default {
   }
 }
 </script>
-
-<style lang='sass' scoped>
-  .column
-    display: inline-block
-    vertical-align: text-top
-    margin-right: 13px
-    width: 300px
-    .body
-      background-color: #fbfbfb
-      min-height: 20px
-      .issue
-        margin: 5px
-        box-shadow: 0 1px 2px rgba(186,186,186,0.5)
-        .issue-body
-          padding: 0.5rem
-          .text
-            overflow: hidden
-            text-overflow: ellipsis
-    .more
-      text-align: center
-      .text
-        display: inline-block
-        &:hover
-          text-decoration: underline
-          cursor: pointer
-</style>
