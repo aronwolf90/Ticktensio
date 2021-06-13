@@ -8,8 +8,7 @@ div
       .side-menu
         .nav.navbar-nav
           asides
-          ul.nav.navbar-nav.shared-section
-            shared-issue-section
+        shared-issue-section
       section#side-body.container-fluid
         .body-content
           router-view
@@ -44,6 +43,8 @@ export default {
   background-color: #f8f8f8
   border-right: 2px solid #e7e7e7
   z-index: 999
+  display: flex
+  flex-direction: column
 
   @media only screen and (max-width: 600px)
     display: none
@@ -51,7 +52,7 @@ export default {
     left: 0
     margin-top: $navbar-height-mobile
     &.expanded
-      display: block
+      display: flex
       min-width: $side-menu-width
       max-width: $side-menu-width
 
@@ -63,32 +64,13 @@ export default {
     border-bottom: 1px solid #e7e7e7
 
   .navbar-nav
-    li
-      display: block
-      width: 100%
-      border-bottom: 1px solid #e7e7e7
-      &:hover
-        background-color: #e7e7e7
-      a
-        padding: 15px
-        display: block
-        color: grey
-        &:hover
-          text-decoration: none
-
-    .active a
-      background-color: transparent
-      margin-right: -1px
-      border-left: 5px solid $main-color
-
-  .shared-section
-    position: fixed
-    bottom: 0
-    left: 0
-    width: 170px
-    background-color: #f8f8f8
-
-  .expand
+    flex: 1
+    overflow-y: auto
+    overflow-x: hidden
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat
+    background-attachment: local, local, scroll, scroll
+    background-size: 100% 45px, 100% 45px, 100% 15px, 100% 15px
 
 #side-body
   padding-top: 22px
