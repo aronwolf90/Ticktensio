@@ -110,6 +110,8 @@ RSpec.describe Issues::MoveMutation do
   context "when board_list is a global one" do
     let(:board_list) { create(:board_list, project: nil) }
 
+    before { create(:board_list, project: create(:project)) }
+
     context "when board_list!=issue.global_board_list" do
       let!(:issue) { create(:issue, board_list: project_board_list, global_board_list: global_board_list) }
       let(:project_board_list) { create(:board_list) }

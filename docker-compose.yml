@@ -151,7 +151,7 @@ services:
       - mail_hog
 
   selenium:
-    image: selenium/standalone-chrome-debug
+    image: selenium/standalone-chrome-debug:3.141.59-20210422
     ports:
       - "4444:4444"
       - "5901:5900"

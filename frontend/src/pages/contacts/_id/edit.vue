@@ -2,7 +2,7 @@
   .contacts-edit
     contact-form(
       @onSubmit="onSubmit",
-      v-if="result",
+      v-if="contact",
       :name="name",
       :description="description",
       :telephone="telephone",
@@ -96,11 +96,6 @@ export default {
     },
     avatarUrl () {
       return Utils.attribute(this.contact, 'avatar-url')
-    }
-  },
-  asyncComputed: {
-    result () {
-      return this.$store.dispatch('contact', this.contactId)
     }
   }
 }

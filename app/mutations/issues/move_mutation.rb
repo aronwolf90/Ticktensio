@@ -22,26 +22,26 @@ module Issues
       ActiveRecord::Base.transaction do
         issue.update!(global_board_list: global_board_list) if global_board_list.present?
         issue.update!(board_list: project_board_list) if project_board_list.present?
-      end
 
-      if before_issue.blank? || before_issue.board_list == issue.board_list
-        issue.update!(ordinal_number: project_ordinal_number)
-        SortMutation.call(
-          Issue.where(board_list_id: issue.board_list_id),
-          model: issue,
-          sort_key: :ordinal_number,
-          sort_value: project_ordinal_number
-        )
-      end
+        if before_issue.blank? || before_issue.board_list == issue.board_list
+          issue.update!(ordinal_number: project_ordinal_number)
+          SortMutation.call(
+            Issue.where(board_list_id: issue.board_list_id),
+            model: issue,
+            sort_key: :ordinal_number,
+            sort_value: project_ordinal_number
+          )
+        end
 
-      if before_issue.blank? || before_issue.global_board_list == issue.global_board_list
-        issue.update!(global_ordinal_number: global_ordinal_number)
-        SortMutation.call(
-          Issue.where(global_board_list_id: issue.global_board_list_id),
-          model: issue,
-          sort_key: :global_ordinal_number,
-          sort_value: global_ordinal_number
-        )
+        if before_issue.blank? || before_issue.global_board_list == issue.global_board_list
+          issue.update!(global_ordinal_number: global_ordinal_number)
+          SortMutation.call(
+            Issue.where(global_board_list_id: issue.global_board_list_id),
+            model: issue,
+            sort_key: :global_ordinal_number,
+            sort_value: global_ordinal_number
+          )
+        end
       end
     end
 
@@ -85,9 +85,9 @@ module Issues
       if board_list.present?
         return board_list if board_list&.project.present?
 
-        BoardList.project.where(kind: board_list.kind, name: board_list.name).first ||
-          BoardList.project.where(kind: board_list.kind).first ||
-          BoardList.project.where(name: board_list.name).first
+        issue.project.board_lists.where(kind: board_list.kind, name: board_list.name).first ||
+          issue.project.board_lists.where(kind: board_list.kind).first ||
+          issue.project.board_lists.where(name: board_list.name).first
       else
         project&.board_lists&.where(kind: issue.board_list&.kind, name: issue.board_list&.name)&.first ||
           project&.board_lists&.where(kind: issue.board_list&.kind)&.first ||

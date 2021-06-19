@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .users-edit
+  .users-edit(v-if="user")
     b-form(@submit.prevent="onSubmit")
       form-input-avatar.avatar(
         id="avatar-input",
@@ -39,7 +39,6 @@
         label="Telephone number"
       )
       btn-submit(:saving="saving") Update user
-      // a.btn.btn-secondary.pull-right(href='/administration/users') Cancel
 </template>
 
 <script>
