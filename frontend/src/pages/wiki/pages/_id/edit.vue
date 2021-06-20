@@ -22,7 +22,7 @@
           | Save
       .col-6
         .btn-group.float-right
-          router-link.btn.btn-sm.btn-secondary(to='/') Cancel
+          router-link.btn.btn-sm.btn-secondary(to='../..') Cancel
           .btn.btn-sm.btn-danger(v-on:click='deleteWikiPage($event)') Delete
 </template>
 
