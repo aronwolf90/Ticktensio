@@ -1,5 +1,8 @@
 <template lang='pug'>
-  viewer.markdown-viewer(:initial-value="value")
+viewer.markdown-viewer(
+  :initial-value="value",
+  ref="editor"
+)
 </template>
 
 <script>
