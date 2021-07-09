@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine3.12 AS base
+FROM ruby:2.6.8-alpine3.12 AS base
 
 ENV DOCKER true
 ENV DISABLE_SPRING true
