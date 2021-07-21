@@ -9,8 +9,8 @@
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.13.15",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
     "babel-loader": "^8.2.2",
     "babel-plugin-istanbul": "^4.1.6",
     "postcss-smart-import": "^0.7.6"
