@@ -20,6 +20,13 @@ spec:
             backend:
               serviceName: {{ .Release.Name }}-front
               servicePort: 80
+    - host: minio.{{ .Values.url }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .Release.Name }}-minio
+              servicePort: 9000
     {{- if .Values.multiTenant }}
     - host: "*.{{ .Values.url }}"
       http:
