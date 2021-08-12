@@ -12,6 +12,7 @@ data:
   ADMIN_PASSWORD: '{{ .Values.admin_password }}'
   AWS_ENABLED: 'true'
   AWS_SECRET: '{{ .Values.minio.secretKey.password }}'
+  AWS_KEY: '{{ .Values.minio.accessKey.password }}'
   AWS_REGION: 'fra1'
   AWS_ENDPOINT: 'http://{{ .Release.Name }}-minio'
   AWS_DIRECTORY: 'ticktensio'
