@@ -55,7 +55,7 @@ build frontend:
 
 helm_lint:
   stage: test
-  image: aronwolf/helm-doctl
+  image: alpine/k8s:1.18.16
   variables:
     GIT_STRATEGY: clone
   only:
@@ -168,7 +168,7 @@ cucumber:
 
 deploy:
   stage: deploy
-  image: alpine/k8s:1.16.8
+  image: alpine/k8s:1.18.16
   variables:
     GIT_STRATEGY: clone
   environment:
@@ -197,6 +197,8 @@ deploy:
         --set reCaptcha.ignoreKey=$RECAPTCHA_IGNORE_KEY
         --set payment.secret.token=$PAYMENT_TOKEN
         --set googleAnalyticsId=$GOOGLE_ANALYTICS_ID
+        --set minio.secretKey.password=$MINIO_SECRET_KEY
+        --set minio.accessKey.password=$MINIO_ACCESS_KEY
         --namespace cmc-production
   only:
     - master
