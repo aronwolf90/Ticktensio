@@ -14,7 +14,7 @@ data:
   AWS_SECRET: '{{ .Values.minio.secretKey.password }}'
   AWS_KEY: '{{ .Values.minio.accessKey.password }}'
   AWS_REGION: 'fra1'
-  AWS_ENDPOINT: 'http://{{ .Release.Name }}-minio'
+  AWS_ENDPOINT: 'http://{{ .Release.Name }}-minio:9000'
   AWS_DIRECTORY: 'ticktensio'
   HOST: '{{ .Values.url }}'
   PAYMENT_HOST: '{{ .Values.payment.host }}'
