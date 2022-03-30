@@ -7,7 +7,7 @@ gem "rails", "~> 6.0.3"
 
 # Fundamental
 gem "pg"
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.6"
 gem "ros-apartment", require: "apartment"
 
 # Engines
